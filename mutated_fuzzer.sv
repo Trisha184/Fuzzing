@@ -85,7 +85,7 @@ module mutated_fuzzer (
     assign buffer_empty = (buffer_head == buffer_tail);
 
     // Reset & Buffer Pointer Control
-    always_ff @(posedge clk or negedge rst_n) begin
+    always_ff @(posedge clk) begin
         if (!rst_n) begin
             buffer_head <= 0;
             buffer_tail <= 0;
@@ -102,7 +102,7 @@ module mutated_fuzzer (
     end        
 
     // Monitoring Logic: Store observed input-output patterns
-    always_ff @(posedge clk or negedge rst_n) begin
+    always_ff @(posedge clk) begin
         if (!rst_n)
             test_pattern_index <= 0;
         else if (store_enable && test_pattern_index < 15)
@@ -139,7 +139,7 @@ module mutated_fuzzer (
     end
 
     // Timeout Counter for Hang Detection
-    always_ff @(posedge clk or negedge rst_n) begin
+    always_ff @(posedge clk) begin
         if (!rst_n)
             timeout_counter <= 0;
         else if (state == APPLY_TESTS)
@@ -170,7 +170,7 @@ module mutated_fuzzer (
     end
 
     // FSM Logic
-    always_ff @(posedge clk or negedge rst_n) begin
+    always_ff @(posedge clk) begin
         if (!rst_n)
             state <= IDLE;
         else
