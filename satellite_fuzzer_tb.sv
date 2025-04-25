@@ -1,12 +1,16 @@
 class transaction;
     rand bit [31:0] hwdata;
+    rand bit hwrite;
+    rand bit hsel;
     logic [31:0] hrdata;
     logic [32:0] random_output;
     logic [32:0] mutated_output;
     logic ack_rand, ack_mut;
     constraint c1 {hwdata[1:0] inside {[0:2]};}
+    constraint c2 {hwrite == 1'b1;}
+    constraint c3 {hsel == 1'b1;}
     function void display();
-        $display("hwdata = %b, hrdata = %h, random_output = %h, mutated_output = %h", hwdata, hrdata, random_output, mutated_output);
+        $display("hwdata = %b, hwrite = %b, hsel = %b, hrdata = %h, random_output = %h, mutated_output = %h", hwdata, hwrite, hsel, hrdata, random_output, mutated_output);
     endfunction
 endclass
 
@@ -180,14 +184,17 @@ module tb_satellite_fuzzer_wrapper;
     // Parameters
     parameter DATA_WIDTH = 32;
     parameter BUFFER_DEPTH = 8;
-
+    parameter MAX_WAIT_CYCLES = 100; // given by IP vendor
+    parameter TEST_PATTERN = 15;  // For muttated fuzzer number of patterns
     // Instantiate Interface
     tb_if tb_interface();
 
     // Instantiate DUT
     satellite_fuzzer_wrapper #(
         .DATA_WIDTH(DATA_WIDTH),
-        .BUFFER_DEPTH(BUFFER_DEPTH)
+        .BUFFER_DEPTH(BUFFER_DEPTH),
+        .MAX_WAIT_CYCLES(MAX_WAIT_CYCLES),
+        .TEST_PATTERN(TEST_PATTERN)
     ) dut (
         .clk(tb_interface.clk),
         .rst_n(tb_interface.rst_n),
@@ -213,8 +220,6 @@ module tb_satellite_fuzzer_wrapper;
     endtask
 
 
-
-    
 
     initial begin
         env _env = new(tb_interface);
