@@ -1,6 +1,9 @@
 `timescale 1ns / 1ps
 
-module mutated_fuzzer (
+module mutated_fuzzer #(
+    parameter int MAX_WAIT_CYCLES,
+    parameter int TEST_PATTERN,
+    parameter int BUFFER_DEPTH = 16)(
     input logic clk,
     input logic rst_n,
     input logic enable,
@@ -14,8 +17,9 @@ module mutated_fuzzer (
 
     // Central Fuzzer Communication
     output logic crash_detected,
-    //output logic hang_detected,
-    //output logic mismatch_detected,
+    output logic hang_detected,
+    output logic mismatch_detected,
+    output logic overflow_detected,
     output logic ack,
     output logic [32:0] IP_output
 );
@@ -45,8 +49,7 @@ module mutated_fuzzer (
         logic [31:0] b;
         logic [3:0]  op;
         logic [31:0] result;
-    } test_patterns [0:15]; 
-
+    } test_patterns [0:TEST_PATTERN]; 
 
     integer test_pattern_index;
 
@@ -68,7 +71,7 @@ module mutated_fuzzer (
     logic [7:0] timeout_counter;
 
     // Circular Buffer Parameters
-    localparam BUFFER_DEPTH = 16;
+    //localparam BUFFER_DEPTH = 16;
 
     // checking to apply test if the IP disconnected
     bit alu_ready;
@@ -105,7 +108,7 @@ module mutated_fuzzer (
     always_ff @(posedge clk) begin
         if (!rst_n)
             test_pattern_index <= 0;
-        else if (store_enable && test_pattern_index < 15)
+        else if (store_enable && test_pattern_index < TEST_PATTERN)
             test_pattern_index <= test_pattern_index + 1;
     end
 
@@ -159,7 +162,7 @@ module mutated_fuzzer (
                 //mismatch_detected <= 0;
             end 
             else if (timeout_counter > 100) begin //
-                //hang_detected <= 1;
+                hang_detected <= 1;
                 //mismatch_detected <= 0;
                 crash_detected <= 1;
             end 
@@ -170,7 +173,7 @@ module mutated_fuzzer (
     end
 
     // FSM Logic
-    always_ff @(posedge clk) begin
+    always_ff @(posedge clk  ) begin
         if (!rst_n)
             state <= IDLE;
         else
@@ -274,7 +277,7 @@ end
     // Detect Crashes & Hangs
     //assign crash_detected = (alu_result === 32'hXXXX || alu_result === 32'hZZZZ);
     //assign hang_detected  = (timeout_counter > 100);
-    //assign mismatch_detected = (alu_result !== circular_buffer_result);
+    assign mismatch_detected = (alu_result !== circular_buffer_result);
     
     // Notify Central Fuzzer
     assign disconnect_IP = enable && (crash_detected);
