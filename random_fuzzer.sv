@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
-module random_fuzzer #(    
+module random_fuzzer #(  
+    parameter int MAX_WAIT_CYCLES ,  
     parameter int DATA_WIDTH   = 32,
     parameter int BUFFER_DEPTH = 8 ) (
     input logic clk,
@@ -17,7 +18,10 @@ module random_fuzzer #(
     input logic alu_carry,         // ALU carry signal
 
     // Crash/Hang Detection
+    
     output logic crash_detected,
+    output logic hang_detected,
+    output logic overflow_detected,
     output logic ack,          //DIFFERENT TYPE OF ack...
     output logic [32:0] IP_output
 );
@@ -36,6 +40,10 @@ module random_fuzzer #(
 
     fuzzer_state_t state, next_state;
 
+    // hang,crash detected
+    logic [7:0] wait_counter;
+
+
     // Control signals for IP isolation
     logic disconnect_IP;  // High -> Disconnect IP from SoC
     logic reconnect_IP;   // High -> Reconnect IP to SoC
@@ -43,11 +51,11 @@ module random_fuzzer #(
 
     // checking to apply test if the IP disconnected
     bit alu_ready;
-    //logic ready;
+    logic ready;
     // Random Pattern Generator (Using LFSR)
     logic [31:0] lfsr_reg;
     logic [3:0] lfsr_op;
-    logic [DATA_WIDTH-1:0] rng_value;
+    logic [DATA_WIDTH-1:0] rng_value [BUFFER_DEPTH-1:0];
 
     // Circular Buffer (FIFO-style) for storing test patterns
     logic [DATA_WIDTH-1:0] circular_buffer [0:BUFFER_DEPTH-1];
@@ -80,9 +88,11 @@ module random_fuzzer #(
             DISCONNECT_IP: 
                 next_state = GENERATE_TESTS;
 
-            GENERATE_TESTS: 
-                next_state = STORE_PATTERN;
-
+            GENERATE_TESTS:
+                if(ready) 
+                    next_state = STORE_PATTERN;
+                else
+                    next_state = GENERATE_TESTS;
             STORE_PATTERN:
                 if (buffer_full) 
                     next_state = APPLY_TESTS;
@@ -95,7 +105,7 @@ module random_fuzzer #(
                     next_state = APPLY_TESTS;
 
             OBSERVE_OUTPUT: 
-                if (alu_result === 32'hXXXX) // Detect crash/hang
+                if (alu_result === 32'hXXXX || alu_result === 32'hZZZZ) // Detect crash/hang
                     next_state = CRASH_DETECTED;
                 else 
                     next_state = RECONNECT_IP;
@@ -110,10 +120,12 @@ module random_fuzzer #(
     end
 
     // Instantiate TRNG (32-bit output)
-    trng #(.DATA_WIDTH(32)) trng_inst (
+    trng #(.DATA_WIDTH(DATA_WIDTH), .BUFFER_DEPTH(BUFFER_DEPTH)) trng_inst (
         .clk(clk),
+        .rst_n(rst_n),
         .enable(state == GENERATE_TESTS),  // Enable TRNG only in GENERATE_TESTS state
-        .random_numbers(rng_value)
+        .random_numbers(rng_value),
+        .ready(ready)
     );
 
 
@@ -125,8 +137,8 @@ module random_fuzzer #(
 	    if (!rst_n) begin
             buffer_head <= 0;
             buffer_tail <= 0;
-	    end else if (state == STORE_PATTERN && !buffer_full) begin
-		    circular_buffer[buffer_tail] <= rng_value; // Store new test pattern
+	    end else if (state == STORE_PATTERN && !buffer_full && ready) begin
+		    circular_buffer[buffer_tail] <= rng_value[buffer_tail]; // Store new test pattern
 		    buffer_tail <= (buffer_tail + 1) % BUFFER_DEPTH; // Move tail pointer
 		end
 	end
@@ -197,58 +209,96 @@ module random_fuzzer #(
     // OBSERVE_OUTPUT State Logic - Monitor IP Response
     always_ff @(posedge clk) begin
         if (!rst_n) begin
+            wait_counter <= 0;
+            hang_detected <= 0;
             crash_detected <= 0;
             IP_output <= 0;
+        end else if (state == APPLY_TESTS) begin
+            if (!alu_ready) begin
+            wait_counter <= wait_counter + 1;
+                if (wait_counter > MAX_WAIT_CYCLES)
+                    hang_detected <= 1;
+            end else begin
+            wait_counter <= 0;
+            hang_detected <= 0;
+            end
         end else if (state == OBSERVE_OUTPUT) begin
             IP_output <= {alu_carry, alu_result};
-            crash_detected <= (alu_result === 32'hXXXX); // Detect crash
+            crash_detected <= (alu_result === 32'hXXXX || alu_result === 32'hZZZZ); // Detect crash
+        end else begin
+            wait_counter <= 0;
+            hang_detected <= 0; 
+            crash_detected <= 0;  
+            end     
+    end
+
+
+        // Overflow (basic ALU overflow check)
+    always_ff @(posedge clk) begin
+        if (!rst_n) begin
+            overflow_detected <= 0;
+        end else if (state == OBSERVE_OUTPUT) begin
+            // For ADD operation overflow (example)
+            if ((alu_a[31] == alu_b[31]) && (alu_result[31] != alu_a[31]))
+                overflow_detected <= 1;
         end
     end
 
 endmodule
 
 
+
 module trng #(
-    parameter int DATA_WIDTH
+    parameter int DATA_WIDTH,   // Number of bits per generated random value
+    parameter int BUFFER_DEPTH   // Number of values to generate
 )(
-    input  logic clk,        
-    input  logic enable,     // Enable signal to turn on TRNG
-    output logic [DATA_WIDTH-1:0] random_numbers // Output N-bit random number
+    input logic clk,
+    input logic rst_n,
+    input logic enable,
+    output logic [DATA_WIDTH-1:0] random_numbers [BUFFER_DEPTH-1:0],
+    output logic ready
 );
 
-    logic [DATA_WIDTH-1:0] ring_osc_out;  
-    logic [DATA_WIDTH-1:0] sampled_bits;  
+    logic ring_out;
+    logic [DATA_WIDTH-1:0] rand_sample;
+    logic [DATA_WIDTH-1:0] rand_buffer [BUFFER_DEPTH-1:0];
 
-    genvar i;
-    generate
-        for (i = 0; i < DATA_WIDTH; i = i + 1) begin : trng_cells
-            logic inv1, inv2, inv3;
-            
-            // Odd-numbered inverters --------- ring oscillator
-            always_comb begin
-                if (enable) begin
-                    inv1 = ~inv3;  
-                    inv2 = ~inv1;  
-                    inv3 = ~inv2;  
-                end else begin
-                    inv1 = 1'b0;
-                    inv2 = 1'b0;
-                    inv3 = 1'b0;
-                end
-            end
-            
-            assign ring_osc_out[i] = inv3;
+    // Ring Oscillator: Odd number of inverters in a feedback loop
+    logic [5:0] inv_chain;  // 5-stage inverter chain (odd number)
 
-            // Sampling the ring oscillator output into a flip-flop
-            always_ff @(posedge clk) begin
-                sampled_bits[i] <= ring_osc_out[i];
-            end
+    always_comb begin
+        if(enable) begin
+            inv_chain[0] = ~inv_chain[5]; // AND gate for enable control
+            inv_chain[1] = ~inv_chain[0];
+            inv_chain[2] = ~inv_chain[1];
+            inv_chain[3] = ~inv_chain[2];
+            inv_chain[4] = ~inv_chain[3];
+            inv_chain[5] = ~inv_chain[4];
         end
-    endgenerate
+        else begin
+            inv_chain = 6'b000000;          
+        end
+    end
+    assign ring_out = inv_chain[5]; // Final output of ring oscillator
 
-    assign random_bits = sampled_bits; 
+    always_ff @(posedge clk) begin
+        if (!rst_n) begin
+            ready <= 1'b0;
+        end else if (enable) begin
+            ready <= 1'b0;
+            for (int i = 0; i < BUFFER_DEPTH; i = i + 1) begin
+                rand_sample <= {rand_sample[DATA_WIDTH-2:0], ring_out}; // Shift sampled bits
+                rand_buffer[i] <= rand_sample;
+            end
+            ready <= 1'b1;
+        end
+    end
+
+    // Assign generated numbers to output
+    assign random_numbers = rand_buffer;
 
 endmodule
+
 
 
 
