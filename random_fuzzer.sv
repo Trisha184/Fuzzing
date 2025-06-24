@@ -4,7 +4,7 @@ import common_types::*;
 module random_fuzzer #(  
     parameter int MAX_WAIT_CYCLES ,  
     parameter int DATA_WIDTH   = 32,
-    parameter int READ_DATA_WIDTH,
+    parameter int READ_DATA_WIDTH = 32,
     parameter int BUFFER_DEPTH = 8 ) (
     input logic clk,
     input logic rst_n,
@@ -146,12 +146,18 @@ module random_fuzzer #(
     assign buffer_empty = (buffer_head == buffer_tail);
 
 	always_ff @(posedge clk) begin
-	    if (!rst_n) begin
-            buffer_head <= 0;
-            buffer_tail <= 0;
-	    end else if (state == STORE_PATTERN && !buffer_full && ready) begin
-		    circular_buffer[buffer_tail] <= rng_value[buffer_tail]; // Store new test pattern
-		    buffer_tail <= (buffer_tail + 1) % BUFFER_DEPTH; // Move tail pointer
+		if (!rst_n) begin
+		    buffer_head <= 0;
+		    buffer_tail <= 0;
+		end else begin
+		    if (state == STORE_PATTERN && !buffer_full && ready) begin
+		        circular_buffer[buffer_tail] <= rng_value[buffer_tail];
+		        buffer_tail <= (buffer_tail + 1) % BUFFER_DEPTH;
+		    end
+
+		    if (state == APPLY_TESTS && wb_ack) begin
+		        buffer_head <= (buffer_head + 1) % BUFFER_DEPTH;
+		    end
 		end
 	end
 
@@ -199,9 +205,9 @@ module random_fuzzer #(
 			wb_we   <= 1'b1;                                 // Write enable
 			wb_stb  <= 1'b1;                                 // Start bus transaction
 			wb_cyc  <= 1'b1;
-		    if (wb_ack) begin
+		    /*if (wb_ack) begin
 		        buffer_head <= (buffer_head + 1) % BUFFER_DEPTH;
-		    end
+		    end*/
         end else if (reconnect_IP || state != APPLY_TESTS) begin
 			wb_stb  <= 1'b0;
 			wb_cyc  <= 1'b0;
