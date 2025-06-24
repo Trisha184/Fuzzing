@@ -2,12 +2,12 @@
 
 module satellite_fuzzer_wrapper #(
     parameter int DATA_WIDTH      = 32,
-    parameter int READ_DATA_WIDTH = 64,
+    parameter int READ_DATA_WIDTH = 32,
     parameter int BUFFER_DEPTH    = 8,
     parameter int MAX_WAIT_CYCLES = 100,
     parameter int TEST_PATTERN    = 15,
     parameter int ADDR_WIDTH      = 32,
-    parameter int EXT_RW_WIDTH    = 256,
+    parameter int EXT_RW_WIDTH    = 32,
 	parameter int MUTATION_WIDTH  = 8
 )(
     input  logic clk,
@@ -43,7 +43,7 @@ module satellite_fuzzer_wrapper #(
     logic [1:0] fuzz_mode_reg;
     logic [READ_DATA_WIDTH-1:0] status_reg;
 
-
+	//logic [31:0]IP_output;
 
     // Random fuzzer outputs
     logic [ADDR_WIDTH-1:0] rand_fuzz_addr;
@@ -87,13 +87,28 @@ module satellite_fuzzer_wrapper #(
     logic [DATA_WIDTH-1:0] mutran_wb_dat_i;
     logic [(DATA_WIDTH/8)-1:0] mutran_wb_sel;
 
+	// Random fuzzer internal
+	logic [ADDR_WIDTH-1:0] rand_wb_adr;
+	logic                  rand_wb_cyc, rand_wb_stb, rand_wb_we;
+	logic [DATA_WIDTH-1:0] rand_wb_dat_i;
+	logic [(DATA_WIDTH/8)-1:0] rand_wb_sel;
+
+	// Mutated fuzzer internal
+	logic [ADDR_WIDTH-1:0] mut_wb_adr;
+	logic                  mut_wb_cyc, mut_wb_stb, mut_wb_we;
+	logic [DATA_WIDTH-1:0] mut_wb_dat_i;
+	logic [(DATA_WIDTH/8)-1:0] mut_wb_sel;
+
+	logic [EXT_RW_WIDTH-1:0] rand_fuzz_output, mut_fuzz_output;
+
+
 
 	// Fuzz path control
 	logic use_fuzz_inputs;
 	logic mutated_trigger;
 
 	// mux implemented to monitor or apply test to an IP block...
-	assign sha_clk = monitor_clk;  // only monitoring
+	/*assign sha_clk = monitor_clk;  // only monitoring
 	assign sha_rst_n = monitor_rst_n; // only monitoring
 
 	assign sha_wb_adr = use_fuzz_inputs ? mutran_wb_adr : monitor_adr;
@@ -101,7 +116,7 @@ module satellite_fuzzer_wrapper #(
 	assign sha_wb_dat_i = use_fuzz_inputs ? mutran_wb_dat_i : monitor_dat_i;
 	assign sha_wb_sel = use_fuzz_inputs ? mutran_wb_sel : monitor_sel;
 	assign sha_wb_stb = use_fuzz_inputs ? mutran_wb_stb : monitor_stb;
-	assign sha_wb_we = use_fuzz_inputs ? mutran_wb_we : monitor_we;
+	assign sha_wb_we = use_fuzz_inputs ? mutran_wb_we : monitor_we;*/
 
 	//assign sha_wb_ack = monitor_ack // output only monitoring
 	//assign sha_wb_err = monitor_err // output only monitoring
@@ -137,11 +152,11 @@ module satellite_fuzzer_wrapper #(
             fuzz_mode_reg <= ext_slave_rdata[1:0];
     end
 
-	assign ext_slave_wdata = (ext_slave_addr_read[7:0] == 8'h00) ? {30'b0, fuzz_mode_reg} :
+	/*assign ext_slave_wdata = (ext_slave_addr_read[7:0] == 8'h00) ? {30'b0, fuzz_mode_reg} :
 		                     (ext_slave_addr_read[7:0] == 8'h04) ? status_reg[31:0] :
-		                     32'hDEADBEEF;
+		                     32'hDEADBEEF;*/
 
-	assign ext_slave_read_done = 1'b1; // Always ready OR gate this with your FSM if needed
+	//assign ext_slave_read_done = 1'b1; // Always ready OR gate this with your FSM if needed
 
     // ------------------------------------------
     // sha256 selection logic based on fuzz mode
@@ -176,6 +191,36 @@ module satellite_fuzzer_wrapper #(
         endcase
     end
 
+	always_comb begin
+		case (fuzz_mode_reg)
+		    2'b01: begin
+		        mutran_wb_adr   = rand_wb_adr;
+		        mutran_wb_cyc   = rand_wb_cyc;
+		        mutran_wb_stb   = rand_wb_stb;
+		        mutran_wb_we    = rand_wb_we;
+		        mutran_wb_dat_i = rand_wb_dat_i;
+		        mutran_wb_sel   = rand_wb_sel;
+		    end
+		    2'b10: begin
+		        mutran_wb_adr   = mut_wb_adr;
+		        mutran_wb_cyc   = mut_wb_cyc;
+		        mutran_wb_stb   = mut_wb_stb;
+		        mutran_wb_we    = mut_wb_we;
+		        mutran_wb_dat_i = mut_wb_dat_i;
+		        mutran_wb_sel   = mut_wb_sel;
+		    end
+		    default: begin
+		        mutran_wb_adr   = '0;
+		        mutran_wb_cyc   = 1'b0;
+		        mutran_wb_stb   = 1'b0;
+		        mutran_wb_we    = 1'b0;
+		        mutran_wb_dat_i = '0;
+		        mutran_wb_sel   = '0;
+		    end
+		endcase
+	end
+
+
     // ------------------------------------------
     // Instantiate Fuzzers
     // ------------------------------------------
@@ -184,12 +229,12 @@ module satellite_fuzzer_wrapper #(
         .clk(clk),
         .rst_n(rst_n),
         .enable(fuzz_mode_reg == 2'b01),
-        .wb_addr(mutran_wb_adr),
-        .wb_data(mutran_wb_dat_i),
-        .wb_sel(mutran_wb_sel),
-        .wb_stb(mutran_wb_stb),
-        .wb_cyc(mutran_wb_cyc),
-        .wb_we(mutran_wb_we),
+        .wb_addr(rand_wb_adr),
+        .wb_data(rand_wb_dat_i),
+        .wb_sel(rand_wb_sel),
+        .wb_stb(rand_wb_stb),
+        .wb_cyc(rand_wb_cyc),
+        .wb_we(rand_wb_we),
         .wb_ack(sha_wb_ack),
         .wb_err(sha_wb_err),
         .wb_data_o(sha_wb_dat_o),
@@ -197,7 +242,8 @@ module satellite_fuzzer_wrapper #(
         .ack(ack_rand),
         .crash_detected(crash_detected_random),
         .hang_detected(hang_detected_random),
-        .overflow_detected(overflow_detected_random)
+        .overflow_detected(overflow_detected_random),
+		.IP_output(rand_fuzz_output)
     );
 
     // Mutated Fuzzer
@@ -214,12 +260,12 @@ module satellite_fuzzer_wrapper #(
         .wb_mon_cyc(monitor_cyc),
         .wb_mon_we(monitor_we),
 
-        .wb_addr(mutran_wb_adr),
-        .wb_data(mutran_wb_dat_i),
-        .wb_sel(mutran_wb_sel),
-        .wb_stb(mutran_wb_stb),
-        .wb_cyc(mutran_wb_cyc),
-        .wb_we(mutran_wb_we),
+		.wb_addr(mut_wb_adr),
+		.wb_data(mut_wb_dat_i),
+		.wb_sel(mut_wb_sel),
+		.wb_stb(mut_wb_stb),
+		.wb_cyc(mut_wb_cyc),
+		.wb_we(mut_wb_we),
         .wb_ack(sha_wb_ack),
         .wb_err(sha_wb_err),
         .wb_data_o(sha_wb_dat_o),
@@ -228,7 +274,8 @@ module satellite_fuzzer_wrapper #(
         .crash_detected(crash_detected_mutated),
         .hang_detected(hang_detected_mutated),
         .overflow_detected(overflow_detected_mutated),
-        .mismatch_detected(mismatch_detected_mutated)
+        .mismatch_detected(mismatch_detected_mutated),
+		.IP_output(mut_fuzz_output)
     );
 
     // ------------------------------------------
@@ -301,6 +348,9 @@ module satellite_fuzzer_wrapper #(
 	assign ext_master_addr_write  = 32'h80000000;
 	assign ext_master_wdata       = {{(EXT_RW_WIDTH-32){1'b0}}, status_reg[31:0]};
 	assign ext_master_addr_read   = 32'h00000000;  // unused
-
+	assign ext_slave_wdata = (fuzz_mode_reg == 2'b01) ? rand_fuzz_output :
+		                     (fuzz_mode_reg == 2'b10) ? mut_fuzz_output  :
+		                     32'hDEADDEAD;
+	//assign ext_slave_wdata = IP_output;
 
 endmodule
