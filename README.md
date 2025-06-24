@@ -1,5 +1,8 @@
 # Fuzzing
 
+#common_types.sv
+typdef structure package for random fuzzer
+
 # Satellite Fuzzer
 
 run the Makefile which uses VCS simulator
