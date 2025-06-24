@@ -1,8 +1,10 @@
 `timescale 1ns / 1ps
 
+import common_types::*;
 module random_fuzzer #(  
     parameter int MAX_WAIT_CYCLES ,  
     parameter int DATA_WIDTH   = 32,
+    parameter int READ_DATA_WIDTH,
     parameter int BUFFER_DEPTH = 8 ) (
     input logic clk,
     input logic rst_n,
@@ -11,11 +13,12 @@ module random_fuzzer #(
 
     // instance IP wrapper bus
     // IP interface (Fuzzing inputs)   
-    output logic [31:0] alu_a,
-    output logic [31:0] alu_b,
-    output logic [3:0] alu_op,
-    input logic [31:0] alu_result,
-    input logic alu_carry,         // ALU carry signal
+    output logic [31:0] wb_addr,
+    output logic [31:0] wb_data,
+    output logic [3:0] wb_sel,
+	output logic wb_stb, wb_cyc, wb_we,
+    input logic [31:0] wb_data_o,
+    input logic wb_ack, wb_err, int_,       
 
     // Crash/Hang Detection
     
@@ -23,7 +26,7 @@ module random_fuzzer #(
     output logic hang_detected,
     output logic overflow_detected,
     output logic ack,          //DIFFERENT TYPE OF ack...
-    output logic [32:0] IP_output
+    output logic [READ_DATA_WIDTH-1:0] IP_output
 );
 
     // FSM States
@@ -55,10 +58,19 @@ module random_fuzzer #(
     // Random Pattern Generator (Using LFSR)
     logic [31:0] lfsr_reg;
     logic [3:0] lfsr_op;
-    logic [DATA_WIDTH-1:0] rng_value [BUFFER_DEPTH-1:0];
+    //logic [DATA_WIDTH-1:0] rng_value [BUFFER_DEPTH-1:0];
+
+
+	/*typedef struct packed {
+    logic [DATA_WIDTH-1:0] addr;
+    logic [DATA_WIDTH-1:0] data;
+	} test_pattern_t;*/
+
+	test_pattern_t rng_value [BUFFER_DEPTH-1:0];
+	test_pattern_t circular_buffer [0:BUFFER_DEPTH-1];
 
     // Circular Buffer (FIFO-style) for storing test patterns
-    logic [DATA_WIDTH-1:0] circular_buffer [0:BUFFER_DEPTH-1];
+    //logic [DATA_WIDTH-1:0] circular_buffer [0:BUFFER_DEPTH-1];
     logic [$clog2(BUFFER_DEPTH)-1:0] buffer_head, buffer_tail;
     logic buffer_full, buffer_empty;
 
@@ -99,13 +111,13 @@ module random_fuzzer #(
                 else
                     next_state = STORE_PATTERN; 
             APPLY_TESTS:
-                if (alu_ready) 
+                if (wb_ack)                                  ///check this signal from SHA256
                     next_state = OBSERVE_OUTPUT;
                 else
                     next_state = APPLY_TESTS;
 
             OBSERVE_OUTPUT: 
-                if (alu_result === 32'hXXXX || alu_result === 32'hZZZZ) // Detect crash/hang
+                if (wb_data_o === 32'hXXXX || wb_data_o === 32'hZZZZ) // Detect crash/hang
                     next_state = CRASH_DETECTED;
                 else 
                     next_state = RECONNECT_IP;
@@ -153,11 +165,6 @@ module random_fuzzer #(
     end
 
 
-
-    // AHB Response
-    assign hrdata = (state == IDLE) ? 32'h0 :
-                    (state == CRASH_DETECTED) ? 32'hDEADDEAD : 32'h1;
-
     // need to select one.............................................commnets.................
 
     // Add disconnect/reconnect logic for IP interface (inside the wrapper) and apply tests
@@ -168,40 +175,44 @@ module random_fuzzer #(
 
     // Clock Gating	Saves power, but keeps IP state intact
 
-    always_comb begin
-        if (alu_a == 'Z && alu_b == 'Z && alu_op=='Z )
-            alu_ready = 1'b1;
-        else
-            alu_ready = 1'b0;
-    end
 
     always_ff @(posedge clk) begin
         if (!rst_n) begin
-            alu_a <= alu_a;
-            alu_b <= alu_b;
-            alu_op <= alu_op;
+            wb_addr <= wb_addr;
+            wb_data <= wb_data;
+            wb_sel <= wb_sel;
+			wb_stb <= wb_stb;
+			wb_cyc <= wb_cyc;
+			wb_we <= wb_we;
         end else if (disconnect_IP) begin
             // Disconnect the IP from the rest of the SoC (disconnect the bus signals)
-            alu_a <= 'Z;
-            alu_b <= 'Z;
-            alu_op <= 'Z;
-            //alu_result = 'Z;
-           //alu_carry = 'Z;
+            wb_addr <= 'Z;
+            wb_data <= 'Z;
+            wb_sel <= 'Z;
+			wb_stb  <= 1'b0;
+			wb_cyc  <= 1'b0;
+			wb_we   <= 1'b0;
         end else if (state == APPLY_TESTS && !buffer_empty) begin
-        // Iterate over all stored patterns
-            for (int i = buffer_tail; i != buffer_head; i = (i + 1) % BUFFER_DEPTH) begin
-                alu_a  = circular_buffer[i];       // Apply test pattern from buffer
-                alu_b  = ~circular_buffer[i];      // Inverted pattern for variation
-                alu_op = lfsr_op;
-            end
-        end else if (reconnect_IP) begin
-            alu_a <= alu_a;
-            alu_b <= alu_b;
-            alu_op <= alu_op;
+			wb_addr <= circular_buffer[buffer_head].addr;    // Set address
+			wb_data <= circular_buffer[buffer_head].data;    // Set data
+			wb_sel  <= 4'b1111;                              // Enable all bytes
+			wb_we   <= 1'b1;                                 // Write enable
+			wb_stb  <= 1'b1;                                 // Start bus transaction
+			wb_cyc  <= 1'b1;
+		    if (wb_ack) begin
+		        buffer_head <= (buffer_head + 1) % BUFFER_DEPTH;
+		    end
+        end else if (reconnect_IP || state != APPLY_TESTS) begin
+			wb_stb  <= 1'b0;
+			wb_cyc  <= 1'b0;
+			wb_we   <= 1'b0;
         end else begin
-            alu_a <= alu_a;
-            alu_b <= alu_b;
-            alu_op <= alu_op;      
+            wb_addr <= wb_addr;
+            wb_data <= wb_data;
+            wb_sel <= wb_sel;
+			wb_stb <= wb_stb;
+			wb_cyc <= wb_cyc;
+			wb_we <= wb_we;      
         end
     end
 
@@ -213,39 +224,39 @@ module random_fuzzer #(
             hang_detected <= 0;
             crash_detected <= 0;
             IP_output <= 0;
-        end else if (state == APPLY_TESTS) begin
-            if (!alu_ready) begin
-            wait_counter <= wait_counter + 1;
-                if (wait_counter > MAX_WAIT_CYCLES)
-                    hang_detected <= 1;
-            end else begin
-            wait_counter <= 0;
-            hang_detected <= 0;
-            end
-        end else if (state == OBSERVE_OUTPUT) begin
-            IP_output <= {alu_carry, alu_result};
-            crash_detected <= (alu_result === 32'hXXXX || alu_result === 32'hZZZZ); // Detect crash
-        end else begin
-            wait_counter <= 0;
-            hang_detected <= 0; 
-            crash_detected <= 0;  
-            end     
-    end
+		end else if (state == APPLY_TESTS) begin
+		    if (!wb_ack) begin
+		        wait_counter <= wait_counter + 1;
+		        if (wait_counter > MAX_WAIT_CYCLES)
+		            hang_detected <= 1;
+		    end else begin
+		        wait_counter  <= 0;
+		        hang_detected <= 0;
+		    end
+		end else if (state == OBSERVE_OUTPUT) begin
+		    IP_output <= wb_data_o[READ_DATA_WIDTH-1:0];  // Capture SHA result or status
+
+		    crash_detected <= (wb_data_o === 32'hXXXX || wb_data_o === 32'hZZZZ || wb_err);
+
+		end else begin
+		    wait_counter     <= 0;
+		    hang_detected    <= 0;
+		    crash_detected   <= 0;
+		end
+	end
 
 
-        // Overflow (basic ALU overflow check)
-    always_ff @(posedge clk) begin
-        if (!rst_n) begin
-            overflow_detected <= 0;
-        end else if (state == OBSERVE_OUTPUT) begin
-            // For ADD operation overflow (example)
-            if ((alu_a[31] == alu_b[31]) && (alu_result[31] != alu_a[31]))
-                overflow_detected <= 1;
-        end
-    end
+	always_ff @(posedge clk) begin
+		if (!rst_n) begin
+		    overflow_detected <= 0;
+		end else if (state == OBSERVE_OUTPUT) begin
+		    // Flag error if response is not expected
+		    if (wb_err || wb_data_o === 32'hXXXX || wb_data_o === 32'hZZZZ) // Example: unexpected value
+		        overflow_detected <= 1;
+		end
+	end
 
 endmodule
-
 
 
 module trng #(
@@ -255,13 +266,20 @@ module trng #(
     input logic clk,
     input logic rst_n,
     input logic enable,
-    output logic [DATA_WIDTH-1:0] random_numbers [BUFFER_DEPTH-1:0],
+    //output logic [DATA_WIDTH-1:0] random_numbers [BUFFER_DEPTH-1:0],
+	output test_pattern_t random_numbers [BUFFER_DEPTH-1:0],
+
     output logic ready
 );
 
+	/*typedef struct packed {
+		logic [31:0] addr;
+		logic [31:0] data;
+	} test_pattern_t;*/
+
     logic ring_out;
     logic [DATA_WIDTH-1:0] rand_sample;
-    logic [DATA_WIDTH-1:0] rand_buffer [BUFFER_DEPTH-1:0];
+    test_pattern_t rand_buffer [BUFFER_DEPTH-1:0];
 
     // Ring Oscillator: Odd number of inverters in a feedback loop
     logic [5:0] inv_chain;  // 5-stage inverter chain (odd number)
@@ -288,7 +306,8 @@ module trng #(
             ready <= 1'b0;
             for (int i = 0; i < BUFFER_DEPTH; i = i + 1) begin
                 rand_sample <= {rand_sample[DATA_WIDTH-2:0], ring_out}; // Shift sampled bits
-                rand_buffer[i] <= rand_sample;
+                rand_buffer[i].addr <= i * 4; // Sequential addresses (0x00, 0x04, ..., 0x3C)
+				rand_buffer[i].data <= rand_sample;
             end
             ready <= 1'b1;
         end
@@ -298,7 +317,6 @@ module trng #(
     assign random_numbers = rand_buffer;
 
 endmodule
-
 
 
 
