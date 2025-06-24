@@ -2,7 +2,7 @@
 
 # Satellite Fuzzer
 
-Run the Makefile, which usesthe  VCS simulator
+Run the Makefile, which uses the  VCS simulator
 
 # Compile and run VCS simulation inside sim/
 # Default target
