@@ -7,19 +7,19 @@ interface tb_if();
     // External Slave Interface (Central ? Satellite)
     logic ext_slave_we;
     logic [31:0] ext_slave_addr_write;
-    logic [255:0] ext_slave_rdata;
+    logic [31:0] ext_slave_rdata;
     logic ext_slave_write_done;
     logic ext_slave_read_done;
     logic [31:0] ext_slave_addr_read;
-    logic [255:0] ext_slave_wdata;
+    logic [31:0] ext_slave_wdata;
 
     // External Master Interface (Satellite ? Central)
     logic ext_master_req;
     logic ext_master_we;
     logic [31:0] ext_master_addr_read;
     logic [31:0] ext_master_addr_write;
-    logic [255:0] ext_master_wdata;
-    logic [255:0] ext_master_rdata;
+    logic [31:0] ext_master_wdata;
+    logic [31:0] ext_master_rdata;
     logic ext_master_read_done;
     logic ext_master_write_done;
 
@@ -180,12 +180,12 @@ endclass
 module tb_satellite_fuzzer_wrapper;
 
     parameter DATA_WIDTH      = 32;
-    parameter READ_DATA_WIDTH = 64;
+    parameter READ_DATA_WIDTH = 32;
     parameter BUFFER_DEPTH    = 8;
     parameter MAX_WAIT_CYCLES = 100;
     parameter TEST_PATTERN    = 15;
     parameter ADDR_WIDTH      = 32;
-    parameter EXT_RW_WIDTH    = 256;
+    parameter EXT_RW_WIDTH    = 32;
     parameter MUTATION_WIDTH  = 8;
 
     tb_if tb_interface();
