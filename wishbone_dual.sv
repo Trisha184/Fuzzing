@@ -224,3 +224,4 @@ module wishbone_dual #(
         end
     end
 endmodule
+
