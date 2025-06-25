@@ -31,7 +31,7 @@ module mutated_fuzzer #(
     output logic mismatch_detected,
     output logic overflow_detected,
     output logic ack,
-    output logic [32:0] IP_output,
+    output logic [31:0] IP_output,
 
 	//
 	output logic trigger
@@ -78,14 +78,14 @@ module mutated_fuzzer #(
 	logic [31:0] actual, circular_buffer_result;
 
     // Dummy pattern generator
-    always_ff @(posedge clk) begin
+    /*always_ff @(posedge clk) begin
         if (!rst_n) begin
             for (int i = 0; i < BUFFER_DEPTH; i++) begin
                 base_buffer[i].addr <= i * 4;
                 base_buffer[i].data <= 32'hA5A5_0000 + i;
             end
         end
-    end
+    end*/
 
     //logic [3:0] test_pattern_index;
     logic store_enable;
@@ -122,7 +122,26 @@ module mutated_fuzzer #(
     endfunction
 
     // Monitor and store patterns
-    always_ff @(posedge clk) begin
+	always_ff @(posedge clk) begin
+		if (!rst_n) begin
+		    pattern_index <= 0;
+		    for (int i = 0; i < BUFFER_DEPTH; i++) begin
+		        base_buffer[i].addr <= i * 4;
+		        base_buffer[i].data <= 32'hA5A5_0000 + i;
+		        base_buffer[i].sel  <= 4'b0000;
+		        base_buffer[i].we   <= 1'b0;
+		        base_buffer[i].stb  <= 1'b0;
+		        base_buffer[i].cyc  <= 1'b0;
+		    end
+		end else if (store_enable && pattern_index < BUFFER_DEPTH) begin
+		    base_buffer[pattern_index].addr <= wb_mon_addr;
+		    base_buffer[pattern_index].data <= wb_mon_data;
+		    base_buffer[pattern_index].sel  <= wb_mon_sel;
+		    base_buffer[pattern_index].we   <= wb_mon_we;
+		    pattern_index <= pattern_index + 1;
+		end
+	end
+    /*always_ff @(posedge clk) begin
         if (!rst_n) begin
             pattern_index <= 0;
         end else if (store_enable && pattern_index < BUFFER_DEPTH) begin
@@ -132,7 +151,7 @@ module mutated_fuzzer #(
             base_buffer[pattern_index].we   <= wb_mon_we;
             pattern_index <= pattern_index + 1;
         end
-    end
+    end*/
     // Fetch stored test patterns into circular buffers
 
 
