@@ -5,7 +5,7 @@ VCS_FLAGS = -full64 -debug_access+all -sverilog +vcs+vcdpluson +incdir+$(SHA256_
 RUN_FLAGS = -R | tee run.log
  
 # File list
-VERILOG_FILES = top_module.sv wishbone_dual.sv common_types.sv satellite_fuzzer_5.sv random_fuzzer2.sv mutated_fuzzer1.sv 
+VERILOG_FILES = top_module.sv wishbone_dual.sv common_types.sv Satellite_fuzzer_wb.sv random_fuzzer.sv mutated_fuzzer.sv 
 SHA256_DIR = sha256
 SHA256_FILES = $(wildcard $(SHA256_DIR)/*.v)
 TESTBENCH_FILE = satellite_tb_wb.sv
