@@ -10,4 +10,4 @@ SHAtest : clean
 .PHONY: clean
 
 clean: 
-	rm -rf simv.daidir/ $(WORK_DIR) WORK/
+	rm -rf simv* csrc* *.log ucli.key
