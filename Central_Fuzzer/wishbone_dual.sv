@@ -128,7 +128,7 @@ module wishbone_dual #(
                 M_WRITE : begin
                     wbm_adr_o  <= ext_master_addr_write;
                     for (int i = 0; i < BURST_LEN; i++) begin
-                        master_buffer[i] = ext_master_wdata[i*DATA_WIDTH +: DATA_WIDTH]; // divide the data into chunks and load it in buffer
+                        master_buffer[i] <= ext_master_wdata[i*DATA_WIDTH +: DATA_WIDTH]; // divide the data into chunks and load it in buffer
                     end
                     wbm_cyc_o <= 1;
                     wbm_stb_o <= 1;
@@ -198,7 +198,7 @@ module wishbone_dual #(
                 end
                 S_WRITE : begin
                       for (int i = 0; i < BURST_LEN;  i++) begin
-                        slave_buffer[i] = ext_slave_wdata[i*DATA_WIDTH +: DATA_WIDTH];
+                        slave_buffer[i] <= ext_slave_wdata[i*DATA_WIDTH +: DATA_WIDTH];
                       end 
                         wbs_dat_o <= slave_buffer[s_idx];
                         wbs_ack_o <= 1;

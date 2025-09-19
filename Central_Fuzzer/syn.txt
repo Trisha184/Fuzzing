@@ -1,0 +1,644 @@
+rm -rf simv.daidir/  WORK/
+dc_shell -f compiledc.tcl
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+               Version T-2022.03-SP5 for linux64 - Oct 11, 2022 
+
+                    Copyright (c) 1988 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+Initializing...
+#set search_path "/WORK"
+# Suppress warnings about undeclared wires
+set suppress_errors {VER-936}
+VER-936
+## Setting up target libraries
+set_app_var target_library {
+    lec25dscc25.db
+}
+
+    lec25dscc25.db
+
+define_design_lib WORK -path ./WORK
+1
+## Setting up link libraries
+set_app_var link_library $target_library
+
+    lec25dscc25.db
+
+set my_files [list central_fuzz_fsm.sv wishbone_dual.sv central_top.sv]
+central_fuzz_fsm.sv wishbone_dual.sv central_top.sv
+analyze -f sverilog $my_files 
+Running PRESTO HDLC
+Compiling source file ./central_fuzz_fsm.sv
+Opening include file fuzz_defines.vh
+Compiling source file ./wishbone_dual.sv
+Compiling source file ./central_top.sv
+Presto compilation completed successfully.
+Loading db file '/ecel/UFAD/tambiaratabassum/Fuzzing_main/Central_Fuzzer/lec25dscc25.db'
+1
+set my_toplevel central_top 
+central_top
+elaborate $my_toplevel
+Loading db file '/apps/syn/synthesis/libraries/syn/gtech.db'
+Loading db file '/apps/syn/synthesis/libraries/syn/standard.sldb'
+  Loading link library 'lec25dscc25_TT'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Presto compilation completed successfully. (central_top)
+Elaborated 1 design.
+Current design is now 'central_top'.
+Information: Building the design 'central_fuzz_fsm' instantiated from design 'central_top' with
+	the parameters "ADDR_WIDTH=32,DATA_WIDTH=32,EXT_RW_WIDTH=32,IP_NUM=4,IP_SELECTOR_WIDTH=2,TRAFFIC_N=2". (HDL-193)
+Warning:  ./central_fuzz_fsm.sv:66: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./central_fuzz_fsm.sv:205: signed to unsigned conversion occurs. (VER-318)
+$display output: corner case payload received: ????????
+
+Statistics for case statements in always block at line 112 in file
+	'./central_fuzz_fsm.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           131            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+	in routine central_fuzz_fsm_ADDR_WIDTH32_DATA_WIDTH32_EXT_RW_WIDTH32_IP_NUM4_IP_SELECTOR_WIDTH2_TRAFFIC_N2 line 84 in file
+		'./central_fuzz_fsm.sv'.
+======================================================================================
+|       Register Name        |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+======================================================================================
+|  corner_case_payload_reg   | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|        state_r_reg         | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|        wr_idx_r_reg        | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|        rd_idx_r_reg        | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+| current_traffic_addr_r_reg | Flip-flop |  26   |  Y  | N  | Y  | N  | N  | N  | N  |
+| current_traffic_addr_r_reg | Flip-flop |   6   |  Y  | N  | N  | Y  | N  | N  | N  |
+|  fuzz_ack_received_r_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+======================================================================================
+
+Inferred memory devices in process
+	in routine central_fuzz_fsm_ADDR_WIDTH32_DATA_WIDTH32_EXT_RW_WIDTH32_IP_NUM4_IP_SELECTOR_WIDTH2_TRAFFIC_N2 line 104 in file
+		'./central_fuzz_fsm.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  trace_buffer_reg   | Flip-flop |  704  |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine central_fuzz_fsm_ADDR_WIDTH32_DATA_WIDTH32_EXT_RW_WIDTH32_IP_NUM4_IP_SELECTOR_WIDTH2_TRAFFIC_N2 line 112 in file
+		'./central_fuzz_fsm.sv'.
+=================================================================================
+|       Register Name       | Type  | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| ext_master_addr_read_reg  | Latch |  32   |  Y  | N  | N  | N  | -  | -  | -  |
+|    ext_master_req_reg     | Latch |   1   |  N  | N  | N  | N  | -  | -  | -  |
+|     ext_master_we_reg     | Latch |   1   |  N  | N  | N  | N  | -  | -  | -  |
+| ext_master_addr_write_reg | Latch |  32   |  Y  | N  | N  | N  | -  | -  | -  |
+|   ext_master_wdata_reg    | Latch |  32   |  Y  | N  | N  | N  | -  | -  | -  |
+=================================================================================
+Statistics for MUX_OPs
+=========================================================================================================================================
+|                                          block name/line                                            | Inputs | Outputs | # sel inputs |
+=========================================================================================================================================
+| central_fuzz_fsm_ADDR_WIDTH32_DATA_WIDTH32_EXT_RW_WIDTH32_IP_NUM4_IP_SELECTOR_WIDTH2_TRAFFIC_N2/143 |   4    |   32    |      2       |
+=========================================================================================================================================
+Warning:  ./central_fuzz_fsm.sv:112: Netlist for always_comb block contains a latch. (ELAB-974)
+Presto compilation completed successfully. (central_fuzz_fsm_ADDR_WIDTH32_DATA_WIDTH32_EXT_RW_WIDTH32_IP_NUM4_IP_SELECTOR_WIDTH2_TRAFFIC_N2)
+Information: Building the design 'wishbone_dual' instantiated from design 'central_top' with
+	the parameters "ADDR_WIDTH=32,DATA_WIDTH=32,EXT_RW_WIDTH=32". (HDL-193)
+Warning:  ./wishbone_dual.sv:116: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./wishbone_dual.sv:119: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./wishbone_dual.sv:142: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./wishbone_dual.sv:145: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./wishbone_dual.sv:191: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./wishbone_dual.sv:205: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./wishbone_dual.sv:117: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./wishbone_dual.sv:143: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Statistics for case statements in always block at line 79 in file
+	'./wishbone_dual.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            97            |     no/auto      |
+===============================================
+
+Statistics for case statements in always block at line 166 in file
+	'./wishbone_dual.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           175            |     no/auto      |
+===============================================
+
+Inferred memory devices in process
+	in routine wishbone_dual_ADDR_WIDTH32_DATA_WIDTH32_EXT_RW_WIDTH32 line 79 in file
+		'./wishbone_dual.sv'.
+=====================================================================================
+|       Register Name       |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=====================================================================================
+|     master_buffer_reg     | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|        mstate_reg         | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       wbm_cyc_o_reg       | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|       wbm_stb_o_reg       | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|       wbm_we_o_reg        | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|       wbm_adr_o_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       wbm_dat_o_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       wbm_sel_o_reg       |   Latch   |   4   |  Y  | N  | N  | Y  | -  | -  | -  |
+|       wbm_cti_o_reg       | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       wbm_bte_o_reg       |   Latch   |   2   |  Y  | N  | Y  | N  | -  | -  | -  |
+|         m_idx_reg         | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+| ext_master_read_done_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+| ext_master_write_done_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   ext_master_rdata_reg    | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+=====================================================================================
+
+Inferred memory devices in process
+	in routine wishbone_dual_ADDR_WIDTH32_DATA_WIDTH32_EXT_RW_WIDTH32 line 166 in file
+		'./wishbone_dual.sv'.
+====================================================================================
+|      Register Name       |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+====================================================================================
+|      wbs_dat_o_reg       | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|        sstate_reg        | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      wbs_ack_o_reg       | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|        s_idx_reg         | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     ext_slave_we_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+| ext_slave_addr_read_reg  | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+| ext_slave_addr_write_reg | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   ext_slave_rdata_reg    | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+| ext_slave_read_done_reg  | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| ext_slave_write_done_reg | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|     slave_buffer_reg     | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+====================================================================================
+Presto compilation completed successfully. (wishbone_dual_ADDR_WIDTH32_DATA_WIDTH32_EXT_RW_WIDTH32)
+1
+set_max_area 0
+1
+compile -ungroup_all -area_effort high -map_effort high
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | T-2022.03-DWBB_202203.4 |     *     |
+| Licensed DW Building Blocks        |                         |           |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler                                                                   |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 1996                                   |
+| Number of User Hierarchies                              | 2                                      |
+| Sequential Cell Count                                   | 1199                                   |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 1                                      |
+| Number of VT Class                                      | 0                                      |
+| Number of Clocks                                        | 0                                      |
+| Number of Dont Touch Cells                              | 157                                    |
+| Number of Dont Touch Nets                               | 0                                      |
+| Number of Size Only Cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+====================================================================================================
+
+Information: There are 114 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'wishbone_dual_ADDR_WIDTH32_DATA_WIDTH32_EXT_RW_WIDTH32'
+Information: The register 'wbm_sel_o_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'wbm_sel_o_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'wbm_sel_o_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'wbm_sel_o_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'wbm_bte_o_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'wbm_bte_o_reg[0]' is a constant and will be removed. (OPT-1206)
+  Processing 'central_fuzz_fsm_ADDR_WIDTH32_DATA_WIDTH32_EXT_RW_WIDTH32_IP_NUM4_IP_SELECTOR_WIDTH2_TRAFFIC_N2'
+Information: Ungrouping hierarchy C4020. (OPT-772)
+  Processing 'central_top'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: Ungrouping hierarchy fuzz_fsm. (OPT-772)
+Information: Ungrouping hierarchy bus_interface. (OPT-772)
+
+  Beginning Implementation Selection
+  ----------------------------------
+Information: The register 'bus_interface/ext_slave_addr_write_reg[31]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[30]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[29]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[28]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[27]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[26]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[25]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[24]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[23]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[22]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[21]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[20]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[19]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[18]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[17]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[16]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[15]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[14]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[13]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[12]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[11]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[10]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[9]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[8]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[7]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[6]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[5]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[4]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[3]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[2]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[1]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_addr_write_reg[0]' will be removed. (OPT-1207)
+Information: The register 'bus_interface/ext_slave_write_done_reg' will be removed. (OPT-1207)
+  Processing 'DW01_add_width32_DW01_add_0'
+  Processing 'DW01_cmp2_width32_DW01_cmp2_2'
+  Processing 'DW01_add_width32_DW01_add_1'
+
+  Beginning Mapping Optimizations  (High effort)
+  -------------------------------
+  Structuring 'central_top'
+  Mapping 'central_top'
+Information: The register 'fuzz_fsm/current_traffic_addr_r_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'fuzz_fsm/ext_master_addr_read_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'fuzz_fsm/current_traffic_addr_r_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'fuzz_fsm/ext_master_addr_read_reg[0]' is a constant and will be removed. (OPT-1206)
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:08  367242.5      0.00       0.0    5141.9                          
+    0:00:08  367242.5      0.00       0.0    5141.9                          
+    0:00:08  367242.5      0.00       0.0    5141.9                          
+    0:00:08  367242.5      0.00       0.0    5141.9                          
+    0:00:08  367242.5      0.00       0.0    5141.9                          
+    0:00:09  326136.2      0.00       0.0    4975.0                          
+    0:00:09  326136.2      0.00       0.0    4975.0                          
+    0:00:09  326136.2      0.00       0.0    4975.0                          
+    0:00:09  326136.2      0.00       0.0    4975.0                          
+    0:00:09  326136.2      0.00       0.0    4975.0                          
+    0:00:11  326426.5      0.00       0.0    3985.8                          
+    0:00:14  326509.4      0.00       0.0    3974.5                          
+    0:00:15  326509.4      0.00       0.0    3974.5                          
+    0:00:15  326509.4      0.00       0.0    3974.5                          
+    0:00:15  326509.4      0.00       0.0    3974.5                          
+
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:15  326509.4      0.00       0.0    3974.5                          
+    0:00:15  326509.4      0.00       0.0    3974.5                          
+    0:00:15  326509.4      0.00       0.0    3974.5                          
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_fanout)
+  ----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:15  326509.4      0.00       0.0    3974.5                          
+    0:00:15  329296.3      0.00       0.0     869.6 net21288                 
+    0:00:15  331063.0      0.00       0.0       0.0                          
+
+
+  Beginning Area-Recovery Phase  (max_area 0)
+  -----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:15  331063.0      0.00       0.0       0.0                          
+    0:00:15  331063.0      0.00       0.0       0.0                          
+    0:00:16  319218.6      0.00       0.0       0.0                          
+    0:00:16  309564.0      0.00       0.0       0.0                          
+    0:00:16  302895.3      0.00       0.0       0.0                          
+    0:00:16  302663.0      0.00       0.0       0.0                          
+    0:00:16  302497.1      0.00       0.0       0.0                          
+    0:00:16  302497.1      0.00       0.0       0.0                          
+    0:00:16  302497.1      0.00       0.0       0.0                          
+    0:00:16  302497.1      0.00       0.0       0.0                          
+    0:00:16  302497.1      0.00       0.0       0.0                          
+    0:00:16  302497.1      0.00       0.0       0.0                          
+    0:00:16  302497.1      0.00       0.0       0.0                          
+    0:00:16  302497.1      0.00       0.0       0.0                          
+    0:00:16  302132.2      0.00       0.0       0.0                          
+    0:00:17  302132.2      0.00       0.0       0.0                          
+    0:00:17  302132.2      0.00       0.0       0.0                          
+    0:00:17  302132.2      0.00       0.0       0.0                          
+    0:00:17  302132.2      0.00       0.0       0.0                          
+    0:00:17  302132.2      0.00       0.0       0.0                          
+    0:00:17  302132.2      0.00       0.0       0.0                          
+    0:00:17  302132.2      0.00       0.0       0.0                          
+    0:00:19  301966.3      0.00       0.0       0.0                          
+    0:00:19  301933.1      0.00       0.0       0.0                          
+    0:00:19  301924.8      0.00       0.0       0.0                          
+    0:00:19  301908.2      0.00       0.0       0.0                          
+    0:00:19  301908.2      0.00       0.0       0.0                          
+    0:00:19  301908.2      0.00       0.0       0.0                          
+    0:00:19  301908.2      0.00       0.0       0.0                          
+    0:00:19  301908.2      0.00       0.0       0.0                          
+    0:00:19  301908.2      0.00       0.0       0.0                          
+    0:00:19  301908.2      0.00       0.0       0.0                          
+    0:00:19  301908.2      0.00       0.0       0.0                          
+    0:00:19  301908.2      0.00       0.0       0.0                          
+Loading db file '/ecel/UFAD/tambiaratabassum/Fuzzing_main/Central_Fuzzer/lec25dscc25.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'central_top' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 1060 load(s), 1 driver(s)
+1
+report_area
+ 
+****************************************
+Report : area
+Design : central_top
+Version: T-2022.03-SP5
+Date   : Thu Sep 18 23:32:09 2025
+****************************************
+
+Information: Updating design information... (UID-85)
+Warning: Design 'central_top' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Library(s) Used:
+
+    lec25dscc25_TT (File: /ecel/UFAD/tambiaratabassum/Fuzzing_main/Central_Fuzzer/lec25dscc25.db)
+
+Number of ports:                          256
+Number of nets:                          4149
+Number of cells:                         3144
+Number of combinational cells:           1979
+Number of sequential cells:              1156
+Number of macros/black boxes:               0
+Number of buf/inv:                        154
+Number of references:                      54
+
+Combinational area:             123843.685669
+Buf/Inv area:                     5316.710514
+Noncombinational area:          177865.472610
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:                301709.158279
+Total area:                 undefined
+1
+report_hierarchy
+ 
+****************************************
+Report : hierarchy
+Design : central_top
+Version: T-2022.03-SP5
+Date   : Thu Sep 18 23:32:09 2025
+****************************************
+
+central_top
+    and2s1             lec25dscc25_TT
+    and3s1             lec25dscc25_TT
+    aoai122s1          lec25dscc25_TT
+    aoai1112s1         lec25dscc25_TT
+    aoi13s1            lec25dscc25_TT
+    aoi21s1            lec25dscc25_TT
+    aoi22s1            lec25dscc25_TT
+    aoi23s1            lec25dscc25_TT
+    aoi42s1            lec25dscc25_TT
+    aoi211s1           lec25dscc25_TT
+    aoi221s1           lec25dscc25_TT
+    aoi222s1           lec25dscc25_TT
+    dffacs1            lec25dscc25_TT
+    dffacs2            lec25dscc25_TT
+    dffass1            lec25dscc25_TT
+    dffs1              lec25dscc25_TT
+    dsmxc31s1          lec25dscc25_TT
+    hi1s1              lec25dscc25_TT
+    i1s1               lec25dscc25_TT
+    i1s3               lec25dscc25_TT
+    ib1s1              lec25dscc25_TT
+    lclks1             lec25dscc25_TT
+    lscs1              lec25dscc25_TT
+    lss1               lec25dscc25_TT
+    mxi21s1            lec25dscc25_TT
+    nb1s1              lec25dscc25_TT
+    nnd2s1             lec25dscc25_TT
+    nnd2s2             lec25dscc25_TT
+    nnd3s1             lec25dscc25_TT
+    nnd3s2             lec25dscc25_TT
+    nnd3s3             lec25dscc25_TT
+    nnd4s1             lec25dscc25_TT
+    nor2s1             lec25dscc25_TT
+    nor2s2             lec25dscc25_TT
+    nor3s1             lec25dscc25_TT
+    nor4s1             lec25dscc25_TT
+    nor5s1             lec25dscc25_TT
+    nor6s1             lec25dscc25_TT
+    oai13s1            lec25dscc25_TT
+    oai21s1            lec25dscc25_TT
+    oai22s1            lec25dscc25_TT
+    oai24s1            lec25dscc25_TT
+    oai211s1           lec25dscc25_TT
+    oai211s2           lec25dscc25_TT
+    oai221s1           lec25dscc25_TT
+    oai222s1           lec25dscc25_TT
+    oai1112s1          lec25dscc25_TT
+    or2s1              lec25dscc25_TT
+    or2s2              lec25dscc25_TT
+    or3s1              lec25dscc25_TT
+    or4s1              lec25dscc25_TT
+    or5s1              lec25dscc25_TT
+    xnr2s1             lec25dscc25_TT
+    xor2s1             lec25dscc25_TT
+1
+report_reference
+ 
+****************************************
+Report : reference
+Design : central_top
+Version: T-2022.03-SP5
+Date   : Thu Sep 18 23:32:09 2025
+****************************************
+
+Attributes:
+    b - black box (unknown)
+   bo - allows boundary optimization
+    d - dont_touch
+   mo - map_only
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    s - synthetic operator
+    u - contains unmapped logic
+
+Reference          Library       Unit Area   Count    Total Area   Attributes
+-----------------------------------------------------------------------------
+and2s1             lec25dscc25_TT
+                                 49.766399      53   2637.619167  
+and3s1             lec25dscc25_TT
+                                 66.355202       7    464.486412  
+aoai122s1          lec25dscc25_TT
+                                 74.649597       1     74.649597  
+aoai1112s1         lec25dscc25_TT
+                                 66.355202       1     66.355202  
+aoi13s1            lec25dscc25_TT
+                                 58.060799       1     58.060799  
+aoi21s1            lec25dscc25_TT
+                                 49.766399      11    547.430393  
+aoi22s1            lec25dscc25_TT
+                                 58.060799     117   6793.113441  
+aoi23s1            lec25dscc25_TT
+                                 66.355202       1     66.355202  
+aoi42s1            lec25dscc25_TT
+                                 74.649597       1     74.649597  
+aoi211s1           lec25dscc25_TT
+                                 58.060799       4    232.243195  
+aoi221s1           lec25dscc25_TT
+                                 74.649597      10    746.495972  
+aoi222s1           lec25dscc25_TT
+                                 82.944000     195  16174.080048  
+dffacs1            lec25dscc25_TT
+                                165.888000     133  22063.104065  n
+dffacs2            lec25dscc25_TT
+                                182.477005      24   4379.448120  n
+dffass1            lec25dscc25_TT
+                                190.770996       6   1144.625977  n
+dffs1              lec25dscc25_TT
+                                157.593994     897  141361.812744 n
+dsmxc31s1          lec25dscc25_TT
+                                 74.649597      33   2463.436707  
+hi1s1              lec25dscc25_TT
+                                 33.177601      41   1360.281635  
+i1s1               lec25dscc25_TT
+                                 33.177601       7    232.243206  
+i1s3               lec25dscc25_TT
+                                 41.472000      22    912.384003  
+ib1s1              lec25dscc25_TT
+                                 33.177601      81   2687.385670  
+lclks1             lec25dscc25_TT
+                                 91.238403      91   8302.694702  n
+lscs1              lec25dscc25_TT
+                                149.298996       1    149.298996  n
+lss1               lec25dscc25_TT
+                                116.122002       4    464.488007  n
+mxi21s1            lec25dscc25_TT
+                                 66.355202     875  58060.801506  
+nb1s1              lec25dscc25_TT
+                                 41.472000       3    124.416000  
+nnd2s1             lec25dscc25_TT
+                                 41.472000      55   2280.960007  
+nnd2s2             lec25dscc25_TT
+                                 41.472000      19    787.968002  
+nnd3s1             lec25dscc25_TT
+                                 49.766399      19    945.561588  
+nnd3s2             lec25dscc25_TT
+                                 49.766399      14    696.729591  
+nnd3s3             lec25dscc25_TT
+                                 82.944000       1     82.944000  
+nnd4s1             lec25dscc25_TT
+                                 58.060799      98   5689.958267  
+nor2s1             lec25dscc25_TT
+                                 41.472000      43   1783.296005  
+nor2s2             lec25dscc25_TT
+                                 58.060799      24   1393.459167  
+nor3s1             lec25dscc25_TT
+                                 82.944000       1     82.944000  
+nor4s1             lec25dscc25_TT
+                                 82.944000       3    248.832001  
+nor5s1             lec25dscc25_TT
+                                 99.532799       2    199.065598  
+nor6s1             lec25dscc25_TT
+                                107.827003       9    970.443031  
+oai13s1            lec25dscc25_TT
+                                 58.060799       4    232.243195  
+oai21s1            lec25dscc25_TT
+                                 49.766399      81   4031.078350  
+oai22s1            lec25dscc25_TT
+                                 58.060799      26   1509.580765  
+oai24s1            lec25dscc25_TT
+                                 91.238403       1     91.238403  
+oai211s1           lec25dscc25_TT
+                                 58.060799       1     58.060799  
+oai211s2           lec25dscc25_TT
+                                 58.060799       1     58.060799  
+oai221s1           lec25dscc25_TT
+                                 74.649597      31   2314.137512  
+oai222s1           lec25dscc25_TT
+                                 82.944000       2    165.888000  
+oai1112s1          lec25dscc25_TT
+                                 66.355202       2    132.710403  
+or2s1              lec25dscc25_TT
+                                 49.766399       5    248.831997  
+or2s2              lec25dscc25_TT
+                                 58.060799       1     58.060799  
+or3s1              lec25dscc25_TT
+                                 58.060799       1     58.060799  
+or4s1              lec25dscc25_TT
+                                 82.944000       5    414.720001  
+or5s1              lec25dscc25_TT
+                                 91.238403       7    638.668823  
+xnr2s1             lec25dscc25_TT
+                                 82.944000       2    165.888000  
+xor2s1             lec25dscc25_TT
+                                 82.944000      57   4727.808014  
+-----------------------------------------------------------------------------
+Total 54 references                                 301709.158279
+1
+write -format verilog -hierarchy -output central_netlist.v central_top
+Writing verilog file '/ecel/UFAD/tambiaratabassum/Fuzzing_main/Central_Fuzzer/central_netlist.v'.
+Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
+1
+quit
+Memory usage for this session 164 Mbytes.
+Memory usage for this session including child processes 164 Mbytes.
+CPU usage for this session 21 seconds ( 0.01 hours ).
+Elapsed time for this session 23 seconds ( 0.01 hours ).
+
+Thank you...

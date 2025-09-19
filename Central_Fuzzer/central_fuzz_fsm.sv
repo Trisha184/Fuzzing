@@ -5,7 +5,8 @@ module central_fuzz_fsm #(
     parameter DATA_WIDTH        = 32,
     parameter EXT_RW_WIDTH      = 32,
     parameter IP_NUM            = 4,
-    parameter IP_SELECTOR_WIDTH = 2
+    parameter IP_SELECTOR_WIDTH = 2,
+     parameter TRAFFIC_N         = 2 
 )(
     input  logic clk,
     input  logic rst,
@@ -55,12 +56,7 @@ module central_fuzz_fsm #(
     } state_t;
     // Internal Registers for state and data
     state_t state_r, state_next;
-    logic [ADDR_WIDTH-1:0] current_traffic_addr_r, current_traffic_addr_next;
-    logic [$clog2(BUFFER_DEPTH)-1:0] wr_idx_r, wr_idx_next;
-    logic [$clog2(BUFFER_DEPTH)-1:0] rd_idx_r, rd_idx_next;
-    logic fuzz_ack_received_r, fuzz_ack_received_next;
-
-    logic anomaly_ack_r, anomaly_ack_next;
+    
  
     // Define constants for clarity
     localparam [ADDR_WIDTH-1:0] ip_address [IP_NUM-1:0] = `IP_ADDR_MAP;
@@ -74,6 +70,13 @@ module central_fuzz_fsm #(
         logic [DATA_WIDTH-1:0] data;
     } trace_entry_t;
     trace_entry_t trace_buffer [0:BUFFER_DEPTH-1];
+
+    logic [ADDR_WIDTH-1:0] current_traffic_addr_r, current_traffic_addr_next;
+    logic [$clog2(BUFFER_DEPTH)-1:0] wr_idx_r, wr_idx_next;
+    logic [$clog2(BUFFER_DEPTH)-1:0] rd_idx_r, rd_idx_next;
+    logic fuzz_ack_received_r, fuzz_ack_received_next;
+
+    logic anomaly_ack_r, anomaly_ack_next;
 
     logic [EXT_RW_WIDTH-1:0] corner_case_payload_next;
  
