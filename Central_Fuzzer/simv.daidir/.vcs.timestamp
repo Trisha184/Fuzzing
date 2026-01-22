@@ -1,0 +1,191 @@
+0
+25
+-Mamsrun=
+-Masflags=--32
+-Mcc=gcc
+-Mcfl= -pipe -m32 -O -I/apps/syn/vcs/current/include
+-Mcplusplus=g++
+-Mcrt0=
+-Mcrtn=
+-Mcsrc=
+-Mexternalobj=
+-Mldflags= -m32 -m32 -rdynamic
+-Mobjects= /apps/syn/vcs/current/linux/lib/libvirsim.so /apps/syn/vcs/current/linux/lib/liberrorinf.so /apps/syn/vcs/current/linux/lib/libsnpsmalloc.so /apps/syn/vcs/current/linux/lib/libvfs.so
+-Mout=simv
+-Msaverestoreobj=/apps/syn/vcs/current/linux/lib/vcs_save_restore_new.o
+-Msyslibs=/apps/syn/vcs/current/linux/lib/ctype-stubs_32.a -ldl
+-Mvcsaceobjs=
+-Mxcflags= -pipe -m32 -I/apps/syn/vcs/current/include
+-Mxllcflags=
+-gen_obj
+-picarchive
+-sverilog
+/apps/syn/vcs/current/linux/bin/vcs1
+central_fuzz_fsm.sv
+wishbone_dual.sv
+central_top.sv
+central_top_tb.sv
+148
+ZOIXHOME=/apps/syn/zoix
+XLIB_SKIP_ARGB_VISUALS=1
+XDG_SESSION_ID=3184
+XDG_RUNTIME_DIR=/run/user/531926731
+XDG_DATA_DIRS=/home/UFAD/tambiaratabassum/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+XCELIUM_INCISIVE_MERGEOPTS=1
+XCELIUM_HOME=/apps/cds/xcelium2309
+WAVEVIEW_HOME=/apps/syn/wv
+VSCODE_IPC_HOOK_CLI=/run/user/531926731/vscode-ipc-72adad0e-af8c-4f79-9601-138b9fc1f2f2.sock
+VSCODE_GIT_IPC_HANDLE=/run/user/531926731/vscode-git-7bcf425103.sock
+VSCODE_GIT_ASKPASS_NODE=/ecel/UFAD/tambiaratabassum/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda/node
+VSCODE_GIT_ASKPASS_MAIN=/ecel/UFAD/tambiaratabassum/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda/extensions/git/dist/askpass-main.js
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+VOLTUS_HOME=/apps/cds/ssv231
+VMR_MODE_FLAG=32
+VERDI_HOME=/apps/syn/verdi/current
+VC_STATIC_HOME=/apps/syn/vc-static/V-2023.12-SP2
+VCS_PYTHON3=/apps/syn/vcs/current/linux/bin/Python3/bin/python3
+VCS_PATHMAP_PRELOAD_DONE=1
+VCS_MX_HOME_INTERNAL=1
+VCS_INTERNAL_CONVERTEDLIBS=
+VCS_HOME=/apps/syn/vcs/current
+VCS_EXEC_DONE=1
+VCS_DEPTH=0
+VCS_ARG_ADDED_FOR_TMP=1
+VCS_ARCH=linux
+VCS_AMD_PURE32=1
+UVM_HOME=/apps/syn/vcs/uvm/1.2
+UNAME=/bin/uname
+TSUPREM4_HOME=/apps/syn/taurus-tsuprem4
+TOOL_HOME=/apps/syn/vcs/current/linux
+TMAX_HOME=/apps/syn/tmax
+TMALD_LICENSE_FILE=27000@licsvr.ece.ufl.edu
+TESSENT_HOME=/apps/mgc/tessent
+TERM_PROGRAM_VERSION=1.86.2
+TERM_PROGRAM=vscode
+TCLLIBPATH=/apps/oascript/Si2oaScript-v3.4/tcl
+TCAD_HOME=/apps/syn/sentaurus/V-2023.09
+TANNER_PATH=/apps/mgc/tanner
+SYSTEM_CDS_LIB_DIR=/apps/cds/IC618/share/cdssetup
+SYN_3DIC_HOME=/apps/syn/3dic/V-2023.12
+SYNPLIFY_HOME=/apps/syn/synplify
+SYNOPSYS_SYN=/apps/syn/synthesis
+SYNOPSYS_SIM=/apps/syn/vcs/current
+SYNOPSYS_LC_ROOT=/apps/syn/lc/bin
+SYNOPSYS_HOME=/apps/syn
+STRATUS_HOME=/apps/cds/stratus182
+STARRC_HOME=/apps/syn/starrc/V-2023.12-SP5-1
+SSH_CONNECTION=10.228.1.154 53815 10.227.232.190 22
+SSH_CLIENT=10.228.1.154 53815 22
+SPYGLASS_HOME=/apps/syn/ufe_optional_spyglass-vcs/current/SPYGLASS_HOME
+SPECTRE_HOME=/apps/cds/spectre211
+SNPS_VCS_PYTHON3=/apps/syn/vcs/current/linux/bin/Python3/bin/python3
+SNPS_VCS_CLANG_PATH=/apps/syn/vcs/current/linux/clang
+SNPS_INTERNAL_VCS_LINUX_OS=linux
+SKIP_CDS_DIALOG=
+SIGRITY_EDA_DIR=/apps/cds/sigrity20211
+SCRNAME=vcs
+SCRIPT_NAME=vcs
+RUBYLIB=/apps/oascript/Si2oaScript-v3.4/ruby
+RTLA_HOME=/apps/syn/rtla/current
+RSOFT_PROGRAMPATH=/apps/syn/photonicsolutions/2023.03-SP1-1/rsoft/bin
+RC_HOME=/apps/cds/rc142
+QUANTUS_HOME=/apps/cds/quantus221
+QT_X11_NO_MITSHM=1
+QT_GRAPHICSSYSTEM_CHECKED=1
+QTLIB=/usr/lib64/qt-3.3/lib
+QTINC=/usr/lib64/qt-3.3/include
+QTDIR=/usr/lib64/qt-3.3
+QRC_HOME=/apps/cds/ext171
+QF_LD_LIBRARY_PATH=/apps/cds/modus211/oa_v22.60.s006/lib/linux_rhel60_64/opt
+PRIMETIME_HOME=/apps/syn/prime/current
+POWERPRO_HOME=/apps/mgc/powerpro
+PHOTONIC_SOLUTIONS_VERSION=2023.03-SP1-1
+PHOTONICS_SOLUTIONS_VERSION=2023.03-SP1-1
+PHOTONICS_SOLUTIONS_ROOT=/apps/syn/photonicsolutions
+PERL5LIB=/apps/oascript/Si2oaScript-v3.4/perl5
+OVA_UUM=0
+OPTO_LINK_BASE=/apps/syn/photonicsolutions/2023.03-SP1-1/optodesigner
+NOVAS_LD_LIBRARY_PATH=/apps/mgc/powerpro/powerpro/platform/linux64/lib
+NANOTIME_HOME=/apps/syn/nt
+NANOSIM_HOME=/apps/syn/ns
+MW_HOME=/apps/syn/mw
+MODUS_HOME=/apps/cds/modus211
+MODELSIM_HOME=/apps/mgc/modelsim/modeltech
+MMSIMHOME=/apps/cds/mmsim131
+MGLS_LICENSE_FILE=1717@ece-itop-licsvr.ece.ufl.edu
+MGC_HOME=/apps/mgc/calibre/aoj_cal_2024.2_36.24
+MFLAGS=
+MEDICI_HOME=/apps/syn/medici
+MAKELEVEL=1
+MAKEFLAGS=
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+LEDA_RESOURCES=/apps/syn/leda/resources
+LEDA_PATH=/apps/syn/leda
+LEDA_CONFIG=/apps/syn/leda/rules
+LC_HOME=/apps/syn/lc
+LC_ALL=C
+KRB5CCNAME=KEYRING:persistent:531926731
+JG_HOME=/apps/cds/jasper/2024.09
+INNOVUSHOME=/apps/cds/innovus211
+ICV_HOME=/apps/syn/icv
+ICVWB_HOME=/apps/syn/icv_workbench
+ICC_HOME=/apps/syn/icc/V-2023.12-SP4
+ICC2_HOME=/apps/syn/icc2/V-2023.12-SP4
+HSPICE_HOME=/apps/syn/hspice
+HPEESOF_DIR=/apps/ads
+HISTCONTROL=ignoredups
+HFSS_HOME=/apps/ansys/AnsysEM2023/v231
+HERCULES_HOME=/apps/syn/hercules
+GPDK_DIR=/apps/cds/IC618/local/GPDK180
+GIT_ASKPASS=/ecel/UFAD/tambiaratabassum/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda/extensions/git/dist/askpass.sh
+GENUSHOME=/apps/cds/genus211
+FPDK_DIR=/apps/cds/IC618/local/FreePDK45
+FORMALITY_HOME=/apps/syn/formality
+FINESIM_HOME=/apps/syn/finesim
+FC_HOME=/apps/syn/fusioncompiler/V-2023.12
+EXT_HOME=/apps/cds/ext171
+EXTHOME=/apps/cds/ext171
+EDIHOME=/apps/cds/edi142
+DESIGNWARE_HOME=/apps/syn/synthesis
+DD_DONT_DO_OS_LOCKS=TRUE
+CVS_RSH=ssh
+CUSTOM_COMPILER_HOME=/apps/syn/customcompiler
+CORETOOLS_HOME=/apps/syn/coretools
+CONFRML_HOME=/apps/cds/confrml241
+COLORTERM=truecolor
+CDS_SITE=/apps/cds/IC618/local
+CDS_ROOT=/apps/cds
+CDS_Netlisting_Mode=Analog
+CDS_LIC_FILE=5280@licsvr.ece.ufl.edu
+CDS_INST_DIR=/apps/cds
+CDSINST=/apps/cds/IC618
+CDSHOME=/apps/cds/IC618
+CDSDIR=/apps/cds/IC618/tools/dfII
+CDS=/apps/cds/IC618
+CDK_DIR=/apps/cds/IC618/local
+CATAPULT_HOME=/apps/mgc/catapult
+CALIBRE_HOME=/apps/mgc/calibre/aoj_cal_2024.2_36.24
+ASTRO_HOME=/apps/syn/astro
+ASSURA_MASTER_KEY=
+ASSURA_HOME=/apps/cds/ASSURA41
+ASSURAHOME=/apps/cds/ASSURA41
+APOLLO_HOME=/apps/syn/apollo
+AMSHOME=/apps/cds/xcelium2309
+ALLEGROHOME=/apps/cds/spb221
+AILM_LICENSE_FILE=27000@licsvr.ece.ufl.edu
+AGILEESOFD_LICENSE_FILE=27002@licsvr.ece.ufl.edu
+0
+0
+5
+1758253483 fuzz_defines.vh
+1758253483 central_top_tb.sv
+1758253483 central_top.sv
+1758253483 wishbone_dual.sv
+1758253483 central_fuzz_fsm.sv
+4
+1733286915 /apps/syn/vcs/current/linux/lib/libvirsim.so
+1733285572 /apps/syn/vcs/current/linux/lib/liberrorinf.so
+1733285568 /apps/syn/vcs/current/linux/lib/libsnpsmalloc.so
+1733285558 /apps/syn/vcs/current/linux/lib/libvfs.so
+1768933310 simv.daidir
+-1 partitionlib

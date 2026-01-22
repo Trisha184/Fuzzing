@@ -1,4 +1,4 @@
-rm -rf simv.daidir/  WORK/
+rm -rf simv.daidir/  WORK/ *.log ucli.key .nfs* csrc/ cds.lib 
 dc_shell -f compiledc.tcl
 
                            Design Compiler Graphical 
@@ -306,17 +306,17 @@ Information: The register 'fuzz_fsm/ext_master_addr_read_reg[0]' is a constant a
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:08  367242.5      0.00       0.0    5141.9                          
-    0:00:08  367242.5      0.00       0.0    5141.9                          
-    0:00:08  367242.5      0.00       0.0    5141.9                          
-    0:00:08  367242.5      0.00       0.0    5141.9                          
-    0:00:08  367242.5      0.00       0.0    5141.9                          
-    0:00:09  326136.2      0.00       0.0    4975.0                          
-    0:00:09  326136.2      0.00       0.0    4975.0                          
-    0:00:09  326136.2      0.00       0.0    4975.0                          
-    0:00:09  326136.2      0.00       0.0    4975.0                          
-    0:00:09  326136.2      0.00       0.0    4975.0                          
-    0:00:11  326426.5      0.00       0.0    3985.8                          
+    0:00:07  367242.5      0.00       0.0    5141.9                          
+    0:00:07  367242.5      0.00       0.0    5141.9                          
+    0:00:07  367242.5      0.00       0.0    5141.9                          
+    0:00:07  367242.5      0.00       0.0    5141.9                          
+    0:00:07  367242.5      0.00       0.0    5141.9                          
+    0:00:08  326136.2      0.00       0.0    4975.0                          
+    0:00:08  326136.2      0.00       0.0    4975.0                          
+    0:00:08  326136.2      0.00       0.0    4975.0                          
+    0:00:08  326136.2      0.00       0.0    4975.0                          
+    0:00:08  326136.2      0.00       0.0    4975.0                          
+    0:00:10  326426.5      0.00       0.0    3985.8                          
     0:00:14  326509.4      0.00       0.0    3974.5                          
     0:00:15  326509.4      0.00       0.0    3974.5                          
     0:00:15  326509.4      0.00       0.0    3974.5                          
@@ -357,8 +357,8 @@ Information: The register 'fuzz_fsm/ext_master_addr_read_reg[0]' is a constant a
   --------- --------- --------- --------- --------- -------------------------
     0:00:15  331063.0      0.00       0.0       0.0                          
     0:00:15  331063.0      0.00       0.0       0.0                          
-    0:00:16  319218.6      0.00       0.0       0.0                          
-    0:00:16  309564.0      0.00       0.0       0.0                          
+    0:00:15  319218.6      0.00       0.0       0.0                          
+    0:00:15  309564.0      0.00       0.0       0.0                          
     0:00:16  302895.3      0.00       0.0       0.0                          
     0:00:16  302663.0      0.00       0.0       0.0                          
     0:00:16  302497.1      0.00       0.0       0.0                          
@@ -370,25 +370,25 @@ Information: The register 'fuzz_fsm/ext_master_addr_read_reg[0]' is a constant a
     0:00:16  302497.1      0.00       0.0       0.0                          
     0:00:16  302497.1      0.00       0.0       0.0                          
     0:00:16  302132.2      0.00       0.0       0.0                          
-    0:00:17  302132.2      0.00       0.0       0.0                          
-    0:00:17  302132.2      0.00       0.0       0.0                          
-    0:00:17  302132.2      0.00       0.0       0.0                          
-    0:00:17  302132.2      0.00       0.0       0.0                          
-    0:00:17  302132.2      0.00       0.0       0.0                          
-    0:00:17  302132.2      0.00       0.0       0.0                          
-    0:00:17  302132.2      0.00       0.0       0.0                          
-    0:00:19  301966.3      0.00       0.0       0.0                          
-    0:00:19  301933.1      0.00       0.0       0.0                          
-    0:00:19  301924.8      0.00       0.0       0.0                          
-    0:00:19  301908.2      0.00       0.0       0.0                          
-    0:00:19  301908.2      0.00       0.0       0.0                          
-    0:00:19  301908.2      0.00       0.0       0.0                          
-    0:00:19  301908.2      0.00       0.0       0.0                          
-    0:00:19  301908.2      0.00       0.0       0.0                          
-    0:00:19  301908.2      0.00       0.0       0.0                          
-    0:00:19  301908.2      0.00       0.0       0.0                          
-    0:00:19  301908.2      0.00       0.0       0.0                          
-    0:00:19  301908.2      0.00       0.0       0.0                          
+    0:00:16  302132.2      0.00       0.0       0.0                          
+    0:00:16  302132.2      0.00       0.0       0.0                          
+    0:00:16  302132.2      0.00       0.0       0.0                          
+    0:00:16  302132.2      0.00       0.0       0.0                          
+    0:00:16  302132.2      0.00       0.0       0.0                          
+    0:00:16  302132.2      0.00       0.0       0.0                          
+    0:00:16  302132.2      0.00       0.0       0.0                          
+    0:00:18  301966.3      0.00       0.0       0.0                          
+    0:00:18  301933.1      0.00       0.0       0.0                          
+    0:00:18  301924.8      0.00       0.0       0.0                          
+    0:00:18  301908.2      0.00       0.0       0.0                          
+    0:00:18  301908.2      0.00       0.0       0.0                          
+    0:00:18  301908.2      0.00       0.0       0.0                          
+    0:00:18  301908.2      0.00       0.0       0.0                          
+    0:00:18  301908.2      0.00       0.0       0.0                          
+    0:00:18  301908.2      0.00       0.0       0.0                          
+    0:00:18  301908.2      0.00       0.0       0.0                          
+    0:00:18  301908.2      0.00       0.0       0.0                          
+    0:00:18  301908.2      0.00       0.0       0.0                          
 Loading db file '/ecel/UFAD/tambiaratabassum/Fuzzing_main/Central_Fuzzer/lec25dscc25.db'
 
 
@@ -406,7 +406,7 @@ report_area
 Report : area
 Design : central_top
 Version: T-2022.03-SP5
-Date   : Thu Sep 18 23:32:09 2025
+Date   : Mon Sep 22 09:50:46 2025
 ****************************************
 
 Information: Updating design information... (UID-85)
@@ -439,7 +439,7 @@ report_hierarchy
 Report : hierarchy
 Design : central_top
 Version: T-2022.03-SP5
-Date   : Thu Sep 18 23:32:09 2025
+Date   : Mon Sep 22 09:50:46 2025
 ****************************************
 
 central_top
@@ -504,7 +504,7 @@ report_reference
 Report : reference
 Design : central_top
 Version: T-2022.03-SP5
-Date   : Thu Sep 18 23:32:09 2025
+Date   : Mon Sep 22 09:50:46 2025
 ****************************************
 
 Attributes:
@@ -631,6 +631,67 @@ xor2s1             lec25dscc25_TT
 -----------------------------------------------------------------------------
 Total 54 references                                 301709.158279
 1
+report_power
+Loading db file '/ecel/UFAD/tambiaratabassum/Fuzzing_main/Central_Fuzzer/lec25dscc25.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: There is no defined clock in the design. (PWR-80)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : central_top
+Version: T-2022.03-SP5
+Date   : Mon Sep 22 09:50:47 2025
+****************************************
+
+
+Library(s) Used:
+
+    lec25dscc25_TT (File: /ecel/UFAD/tambiaratabassum/Fuzzing_main/Central_Fuzzer/lec25dscc25.db)
+
+
+Operating Conditions: nom_pvt   Library: lec25dscc25_TT
+Wire Load Model Mode: top
+
+
+Global Operating Voltage = 2.5  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+Attributes
+----------
+i - Including register clock pin internal power
+
+
+  Cell Internal Power  =   7.3002 mW   (84%)
+  Net Switching Power  =   1.3935 mW   (16%)
+                         ---------
+Total Dynamic Power    =   8.6937 mW  (100%)
+
+Cell Leakage Power     =  10.1983 uW
+
+Information: report_power power group summary does not include estimated clock tree power. (PWR-789)
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)  i
+register           0.0000            0.0000            0.0000            0.0000  (   0.00%)
+sequential         6.0116        8.4081e-02        7.0524e+04            6.0958  (  70.04%)
+combinational      1.2886            1.3094        1.0128e+07            2.6081  (  29.96%)
+--------------------------------------------------------------------------------------------------
+Total              7.3002 mW         1.3935 mW     1.0198e+07 pW         8.7039 mW
+1
 write -format verilog -hierarchy -output central_netlist.v central_top
 Writing verilog file '/ecel/UFAD/tambiaratabassum/Fuzzing_main/Central_Fuzzer/central_netlist.v'.
 Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
@@ -638,7 +699,7 @@ Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
 quit
 Memory usage for this session 164 Mbytes.
 Memory usage for this session including child processes 164 Mbytes.
-CPU usage for this session 21 seconds ( 0.01 hours ).
-Elapsed time for this session 23 seconds ( 0.01 hours ).
+CPU usage for this session 22 seconds ( 0.01 hours ).
+Elapsed time for this session 24 seconds ( 0.01 hours ).
 
 Thank you...

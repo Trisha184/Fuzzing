@@ -25,6 +25,7 @@ compile -ungroup_all -area_effort high -map_effort high
 report_area
 report_hierarchy
 report_reference
+report_power
 
 write -format verilog -hierarchy -output central_netlist.v central_top
 
