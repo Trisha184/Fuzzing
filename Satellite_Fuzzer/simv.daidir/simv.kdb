@@ -1,0 +1,21 @@
+rc file Version 1.0
+
+[Design]
+COMPILE_PATH=/ecel/UFAD/tambiaratabassum/Fuzzing_main/Fuzzing/Satellite_Fuzzer
+VCS_HOME=/apps/syn/vcs/current
+VERDI_HOME=/apps/syn/verdi/current
+SystemC=FALSE
+UUM=FALSE
+KDB=FALSE
+USE_NOVAS_HOME=FALSE
+COSIM=FALSE
+TOP=satellite_fuzzer_tb 
+OPTION=-ssv -ssy 
+ELAB_OPTION=-ssv -ssy 
+
+[Value]
+WREALX=ffff534e50535f58
+WREALZ=ffff534e50535f5a
+
+[CompInfo]
+FLOW_OPTS=-ssv -ssy 

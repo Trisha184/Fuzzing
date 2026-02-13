@@ -1,0 +1,8 @@
+/ecel/UFAD/tambiaratabassum/Fuzzing_main/Fuzzing/Satellite_Fuzzer/aes_128.v
+/ecel/UFAD/tambiaratabassum/Fuzzing_main/Fuzzing/Satellite_Fuzzer/mutated_fuzz.sv
+/ecel/UFAD/tambiaratabassum/Fuzzing_main/Fuzzing/Satellite_Fuzzer/random_fuzzer.sv
+/ecel/UFAD/tambiaratabassum/Fuzzing_main/Fuzzing/Satellite_Fuzzer/round.v
+/ecel/UFAD/tambiaratabassum/Fuzzing_main/Fuzzing/Satellite_Fuzzer/satellite_fuzzer.sv
+/ecel/UFAD/tambiaratabassum/Fuzzing_main/Fuzzing/Satellite_Fuzzer/satellite_fuzzer_tb.sv
+/ecel/UFAD/tambiaratabassum/Fuzzing_main/Fuzzing/Satellite_Fuzzer/table.v
+/ecel/UFAD/tambiaratabassum/Fuzzing_main/Fuzzing/Satellite_Fuzzer/trng.sv
