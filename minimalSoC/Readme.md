@@ -1,4 +1,4 @@
-<!-- This SoC has PicoRV32 core, wishbone interconnect, AES192 and a small ram -->
+#This SoC has PicoRV32 core, wishbone interconnect, AES192 and a small ram
 
 To simulate the SoC
 
