@@ -1,0 +1,2350 @@
+rm -rf firmware.elf firmware.bin firmware.hex simv* /alib-52 /simv* /WORK /csrc .cdsint ucli* default.svf
+dc_shell -f compiledc.tcl
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid this.
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+               Version V-2023.12-SP5 for linux64 - Jul 16, 2024 
+
+                    Copyright (c) 1988 - 2024 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+Initializing...
+Current time:       Fri Feb 13 14:26:33 2026
+Hostname:           ece-b312-nelmsx1
+CPU Model:          AMD EPYC 7702 64-Core Processor
+CPU Details:        Cores = 256 : Sockets = 2 : Cache Size = 512 KB : Freq = 2.00 GHz
+OS:                 Linux 3.10.0-1160.31.1.el7.x86_64
+RAM:                1007 GB (Free  87 GB)
+Swap:                64 GB (Free  32 GB)
+Work Filesystem:    /nelms mounted to ece-nelms-nas.ad.ufl.edu:/volume1/lnxhome
+Tmp Filesystem:     / mounted to /dev/md127
+Work Disk:          74189 GB (Free 5305 GB)
+Tmp Disk:           860 GB (Free  26 GB)
+
+CPU Load: 1%, Ram Free: 87 GB, Swap Free: 32 GB, Work Disk Free: 5305 GB, Tmp Disk Free: 26 GB
+#set search_path "/WORK"
+# Suppress warnings about undeclared wires
+set suppress_errors {VER-936}
+VER-936
+## Setting up target libraries
+set_app_var target_library {
+    lec25dscc25.db
+}
+
+    lec25dscc25.db
+
+define_design_lib WORK -path ./WORK
+1
+## Setting up link libraries
+set_app_var link_library $target_library
+
+    lec25dscc25.db
+
+set my_files [list top.v picorv32.v picorv32_top.v aes_192.v aes_top.v round.v table.v wbram.v wb_bus_b3.sv wb_decode.sv wb_interconnect_arb_rr.sv wb_mux.sv]
+top.v picorv32.v picorv32_top.v aes_192.v aes_top.v round.v table.v wbram.v wb_bus_b3.sv wb_decode.sv wb_interconnect_arb_rr.sv wb_mux.sv
+analyze -f sverilog $my_files 
+Running PRESTO HDLC
+Compiling source file ./top.v
+Compiling source file ./picorv32.v
+Compiling source file ./picorv32_top.v
+Compiling source file ./aes_192.v
+Compiling source file ./aes_top.v
+Compiling source file ./round.v
+Compiling source file ./table.v
+Compiling source file ./wbram.v
+Compiling source file ./wb_bus_b3.sv
+Warning:  ./wbram.v:57: Invalid escape sequence '\0' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:57: Invalid escape sequence '\0' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:57: Invalid escape sequence '\0' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:64: Invalid escape sequence '\3' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:96: Invalid escape sequence '\0' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:96: Invalid escape sequence '\0' in call to '$display'. (VER-941)
+Compiling source file ./wb_decode.sv
+Compiling source file ./wb_interconnect_arb_rr.sv
+Compiling source file ./wb_mux.sv
+Presto compilation completed successfully.
+Loading db file '/nelms/UFAD/tambiaratabassum/SoC-Fuzzing/lec25dscc25.db'
+1
+set my_toplevel top
+top
+elaborate $my_toplevel
+Loading db file '/apps/syn/syn/V-2023.12-SP5/libraries/syn/gtech.db'
+Loading db file '/apps/syn/syn/V-2023.12-SP5/libraries/syn/standard.sldb'
+  Loading link library 'lec25dscc25_TT'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Presto compilation completed successfully. (top)
+Elaborated 1 design.
+Current design is now 'top'.
+Information: Building the design 'picorv32_top'. (HDL-193)
+
+Statistics for case statements in always block at line 190 in file
+	'./picorv32_top.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           200            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+	in routine picorv32_top line 190 in file
+		'./picorv32_top.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    mem_ready_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|    wbm_adr_o_reg    | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|    wbm_dat_o_reg    | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|    wbm_we_o_reg     | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|    wbm_sel_o_reg    | Flip-flop |   4   |  Y  | N  | N  | N  | N  | N  | N  |
+|    wbm_stb_o_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|    wbm_cyc_o_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|      state_reg      | Flip-flop |   2   |  Y  | N  | N  | N  | N  | N  | N  |
+|    mem_rdata_reg    | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (picorv32_top)
+Information: Building the design 'wbram' instantiated from design 'top' with
+	the parameters "depth=16384,memfile="firmware.hex"". (HDL-193)
+Warning:  ./wbram.v:57: Invalid escape sequence '\0' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:57: Invalid escape sequence '\0' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:57: Invalid escape sequence '\0' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:64: Invalid escape sequence '\3' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:96: Invalid escape sequence '\0' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:96: Invalid escape sequence '\0' in call to '$display'. (VER-941)
+Warning:  ./wbram.v:24: The statements in initial blocks are ignored. (VER-281)
+Warning:  ./wbram.v:26: The statements in initial blocks are ignored. (VER-281)
+Warning:  ./wbram.v:102: The statements in initial blocks are ignored. (VER-281)
+Warning:  ./wbram.v:79: signed to unsigned conversion occurs. (VER-318)
+$display output: WR: ADDR= DATA= STRB=??????????????????????????????????
+$display output: OUT: '?'
+$display output: OUT: ?
+$display output: ?$display output: RD: ADDR= DATA={adr_r[31], adr_r[30], adr_r[29], adr_r[28], adr_r[27], adr_r[26], adr_r[25], adr_r[24], adr_r[23], adr_r[22], adr_r[21], adr_r[20], adr_r[19], adr_r[18], adr_r[17], adr_r[16], adr_r[15], adr_r[14], adr_r[13], adr_r[12], adr_r[11], adr_r[10], adr_r[9], adr_r[8], adr_r[7], adr_r[6], adr_r[5], adr_r[4], adr_r[3], adr_r[2], adr_r[1], adr_r[0]}???
+
+Inferred memory devices in process
+	in routine wbram_depth16384_896242 line 31 in file
+		'./wbram.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      adr_r_reg      | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|    wb_ack_o_reg     | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine wbram_depth16384_896242 line 78 in file
+		'./wbram.v'.
+================================================================================
+|    Register Name    |   Type    | Width  | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+|       mem_reg       | Flip-flop | 131072 |  Y  | N  | N  | N  | N  | N  | N  |
+|    wb_dat_o_reg     | Flip-flop |   32   |  Y  | N  | N  | N  | N  | N  | N  |
+================================================================================
+Statistics for MUX_OPs
+================================================================
+|      block name/line       | Inputs | Outputs | # sel inputs |
+================================================================
+| wbram_depth16384_896242/98 |  4096  |   32    |      12      |
+================================================================
+Warning:  ./wbram.v:53: Netlist for always block is empty. (ELAB-985)
+Presto compilation completed successfully. (wbram_depth16384_896242)
+Module: wbram_depth16384_896242, Elapsed Time: 00:00:19, CPU Time: 00:00:19, Total Mem: 1.07 GB, Mem: 944.36 MB, Time: Fri Feb 13 14:26:53 2026
+Information: Building the design 'aes_top'. (HDL-193)
+
+Statistics for case statements in always block at line 57 in file
+	'./aes_top.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            86            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 109 in file
+	'./aes_top.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           111            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+	in routine aes_top line 57 in file
+		'./aes_top.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       key_reg       | Flip-flop |  192  |  Y  | N  | Y  | N  | N  | N  | N  |
+|      start_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     start_r_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|       pt_reg        | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (aes_top)
+Information: Building the design 'wb_bus_b3' instantiated from design 'top' with
+	the parameters "MASTERS=1,SLAVES=2,S0_ENABLE=1,S0_RANGE_WIDTH=4,S0_RANGE_MATCH=4'h0,S1_ENABLE=1,S1_RANGE_WIDTH=4,S1_RANGE_MATCH=4'h1". (HDL-193)
+Presto compilation completed successfully. (wb_bus_b3_1_2_1_4_0_1_4_1)
+Information: Building the design 'picorv32' instantiated from design 'picorv32_top' with
+	the parameters "ENABLE_COUNTERS=1'h1,ENABLE_COUNTERS64=1'h1,ENABLE_REGS_16_31=1'h1,ENABLE_REGS_DUALPORT=1'h1,TWO_STAGE_SHIFT=1'h1,BARREL_SHIFTER=1'h0,TWO_CYCLE_COMPARE=1'h0,TWO_CYCLE_ALU=1'h0,COMPRESSED_ISA=1'h0,CATCH_MISALIGN=1'h1,CATCH_ILLINSN=1'h1,ENABLE_PCPI=1'h0,ENABLE_MUL=1'h0,ENABLE_FAST_MUL=1'h0,ENABLE_DIV=1'h0,ENABLE_IRQ=1'h0,ENABLE_IRQ_QREGS=1'h1,ENABLE_IRQ_TIMER=1'h1,ENABLE_TRACE=1'h0,REGS_INIT_ZERO=1'h0,MASKED_IRQ=32'h00000000,LATCHED_IRQ=32'hffffffff,PROGADDR_RESET=32'h00000000,PROGADDR_IRQ=32'h00000010,STACKADDR=32'hffffffff". (HDL-193)
+Warning:  ./picorv32.v:150: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./picorv32.v:151: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./picorv32.v:191: The statements in initial blocks are ignored. (VER-281)
+Warning:  ./picorv32.v:444: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:448: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:453: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:456: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:470: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:482: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:488: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:603: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:864: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:874: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:884: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1109: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1111: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1113: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1194: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./picorv32.v:1226: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1298: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./picorv32.v:1403: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1454: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1481: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./picorv32.v:1527: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1533: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./picorv32.v:1541: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./picorv32.v:1821: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1829: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1885: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:1886: signed to unsigned assignment occurs. (VER-318)
+Warning:  ./picorv32.v:422: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:595: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:587: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:870: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:873: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:877: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1398: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1409: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1417: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1423: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1498: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1542: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1546: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1519: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1519: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1589: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1567: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1567: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1625: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1699: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1726: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1761: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1776: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1788: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1836: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1846: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1874: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1899: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1906: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1914: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1919: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1940: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1939: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Statistics for case statements in always block at line 387 in file
+	'./picorv32.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           389            |     no/auto      |
+|           398            |    auto/auto     |
+|           406            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 551 in file
+	'./picorv32.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           567            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 842 in file
+	'./picorv32.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1103           |     auto/no      |
+===============================================
+Warning:  ./picorv32.v:1262: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1264: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Statistics for case statements in always block at line 1230 in file
+	'./picorv32.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1233           |      no/no       |
+|           1250           |      no/no       |
+===============================================
+Warning:  ./picorv32.v:1306: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1310: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Statistics for case statements in always block at line 1290 in file
+	'./picorv32.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1296           |     no/auto      |
+===============================================
+Warning:  ./picorv32.v:1488: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1493: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1633: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1641: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1649: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1660: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1669: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+Warning:  ./picorv32.v:1750: Statement unreachable (Branch condition impossible to meet).  (VER-61)
+
+Statistics for case statements in always block at line 1377 in file
+	'./picorv32.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1467           |     no/auto      |
+|           1479           |     no/auto      |
+|           1565           |     auto/no      |
+|           1609           |      no/no       |
+|           1717           |     auto/no      |
+|           1748           |     auto/no      |
+|           1818           |      no/no       |
+|           1826           |      no/no       |
+|           1841           |      no/no       |
+|           1866           |      no/no       |
+|           1883           |      no/no       |
+===============================================
+
+Inferred memory devices in process
+	in routine picorv32_1_1_1_1_1_0_0_0_0_1_1_0_0_0_0_0_1_1_0_0_00000000_ffffffff_00000000_00000010_ffffffff line 387 in file
+		'./picorv32.v'.
+===========================================================================
+|    Register Name    | Type  | Width | Bus | MB | AR | AS | SR | SS | ST |
+===========================================================================
+|  mem_la_wdata_reg   | Latch |  32   |  Y  | N  | N  | N  | -  | -  | -  |
+| mem_rdata_word_reg  | Latch |  32   |  Y  | N  | N  | N  | -  | -  | -  |
+|  mem_la_wstrb_reg   | Latch |   4   |  Y  | N  | N  | N  | -  | -  | -  |
+===========================================================================
+
+Inferred memory devices in process
+	in routine picorv32_1_1_1_1_1_0_0_0_0_1_1_0_0_0_0_0_1_1_0_0_00000000_ffffffff_00000000_00000010_ffffffff line 416 in file
+		'./picorv32.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   mem_rdata_q_reg   | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine picorv32_1_1_1_1_1_0_0_0_0_1_1_0_0_0_0_0_1_1_0_0_00000000_ffffffff_00000000_00000010_ffffffff line 551 in file
+		'./picorv32.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    mem_instr_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|    mem_state_reg    | Flip-flop |   2   |  Y  | N  | N  | N  | N  | N  | N  |
+|    mem_valid_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|    mem_wstrb_reg    | Flip-flop |   4   |  Y  | N  | N  | N  | N  | N  | N  |
+|    mem_addr_reg     | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|    mem_wdata_reg    | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine picorv32_1_1_1_1_1_0_0_0_0_1_1_0_0_0_0_0_1_1_0_0_00000000_ffffffff_00000000_00000010_ffffffff line 842 in file
+		'./picorv32.v'.
+=====================================================================================================
+|               Register Name               |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=====================================================================================================
+|           is_lui_auipc_jal_reg            | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|  is_lui_auipc_jal_jalr_addi_add_sub_reg   | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|            is_slti_blt_slt_reg            | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|          is_sltiu_bltu_sltu_reg           | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|             is_lbu_lhu_lw_reg             | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              is_compare_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|           compressed_instr_reg            | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_lui_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_auipc_reg              | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_jal_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_jalr_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|             instr_retirq_reg              | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|             instr_waitirq_reg             | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|     is_beq_bne_blt_bge_bltu_bgeu_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|          is_lb_lh_lw_lbu_lhu_reg          | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              is_sb_sh_sw_reg              | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|            is_alu_reg_imm_reg             | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|            is_alu_reg_reg_reg             | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|             decoded_imm_j_reg             | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|              decoded_rd_reg               | Flip-flop |   5   |  Y  | N  | N  | N  | N  | N  | N  |
+|              decoded_rs1_reg              | Flip-flop |   5   |  Y  | N  | N  | N  | N  | N  | N  |
+|              decoded_rs2_reg              | Flip-flop |   5   |  Y  | N  | N  | N  | N  | N  | N  |
+|              decoded_imm_reg              | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|               pcpi_insn_reg               | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|               instr_beq_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_bne_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_blt_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_bge_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_bltu_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_bgeu_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_lb_reg                | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_lh_reg                | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_lw_reg                | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_lbu_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_lhu_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_sb_reg                | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_sh_reg                | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_sw_reg                | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_addi_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_slti_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_sltiu_reg              | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_xori_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_ori_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_andi_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_slli_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_srli_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_srai_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_add_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_sub_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_sll_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_slt_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_sltu_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_xor_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_srl_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_sra_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_or_reg                | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|               instr_and_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|             instr_rdcycle_reg             | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|            instr_rdcycleh_reg             | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|             instr_rdinstr_reg             | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|            instr_rdinstrh_reg             | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_getq_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_setq_reg               | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|             instr_maskirq_reg             | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|              instr_timer_reg              | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|           is_slli_srli_srai_reg           | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| is_jalr_addi_slti_sltiu_xori_ori_andi_reg | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|            is_sll_srl_sra_reg             | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+=====================================================================================================
+
+Inferred memory devices in process
+	in routine picorv32_1_1_1_1_1_0_0_0_0_1_1_0_0_0_0_0_1_1_0_0_00000000_ffffffff_00000000_00000010_ffffffff line 1318 in file
+		'./picorv32.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     cpuregs_reg     | Flip-flop | 1024  |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine picorv32_1_1_1_1_1_0_0_0_0_1_1_0_0_0_0_0_1_1_0_0_00000000_ffffffff_00000000_00000010_ffffffff line 1377 in file
+		'./picorv32.v'.
+======================================================================================
+|       Register Name        |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+======================================================================================
+|          trap_reg          | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|         reg_sh_reg         | Flip-flop |   5   |  Y  | N  | N  | N  | N  | N  | N  |
+|        reg_out_reg         | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|       alu_out_q_reg        | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|      count_cycle_reg       | Flip-flop |  64   |  Y  | N  | N  | N  | N  | N  | N  |
+|      mem_do_rdata_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|    decoder_trigger_reg     | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| decoder_pseudo_trigger_reg | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|       do_waitirq_reg       | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|      trace_valid_reg       | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|       trace_data_reg       | Flip-flop |  36   |  Y  | N  | N  | N  | N  | N  | N  |
+|        reg_op2_reg         | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|         reg_pc_reg         | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|      reg_next_pc_reg       | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|      count_instr_reg       | Flip-flop |  64   |  Y  | N  | N  | N  | N  | N  | N  |
+|     latched_store_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|     latched_stalu_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|     latched_branch_reg     | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|     latched_is_lu_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|     latched_is_lh_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|     latched_is_lb_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|       pcpi_valid_reg       | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|          eoi_reg           | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|       cpu_state_reg        | Flip-flop |   8   |  Y  | N  | N  | N  | N  | N  | N  |
+|      mem_do_rinst_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|      mem_wordsize_reg      | Flip-flop |   2   |  Y  | N  | N  | N  | N  | N  | N  |
+|     latched_compr_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|       latched_rd_reg       | Flip-flop |   5   |  Y  | N  | N  | N  | N  | N  | N  |
+|    mem_do_prefetch_reg     | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|        reg_op1_reg         | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|      mem_do_wdata_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+======================================================================================
+Statistics for MUX_OPs
+========================================================================================================================================
+|                                          block name/line                                           | Inputs | Outputs | # sel inputs |
+========================================================================================================================================
+| picorv32_1_1_1_1_1_0_0_0_0_1_1_0_0_0_0_0_1_1_0_0_00000000_ffffffff_00000000_00000010_ffffffff/1327 |   32   |   32    |      5       |
+| picorv32_1_1_1_1_1_0_0_0_0_1_1_0_0_0_0_0_1_1_0_0_00000000_ffffffff_00000000_00000010_ffffffff/1328 |   32   |   32    |      5       |
+========================================================================================================================================
+Warning:  ./picorv32.v:532: Netlist for always block is empty. (ELAB-985)
+Warning:  ./picorv32.v:1167: Netlist for always block is empty. (ELAB-985)
+Presto compilation completed successfully. (picorv32_1_1_1_1_1_0_0_0_0_1_1_0_0_0_0_0_1_1_0_0_00000000_ffffffff_00000000_00000010_ffffffff)
+Information: Building the design 'aes_192'. (HDL-193)
+
+Inferred memory devices in process
+	in routine aes_192 line 38 in file
+		'./aes_192.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     start_r_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine aes_192 line 46 in file
+		'./aes_192.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  validCounter_reg   | Flip-flop |   5   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       s0_reg        | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k0_reg        | Flip-flop |  192  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (aes_192)
+Information: Building the design 'wb_mux' instantiated from design 'wb_bus_b3_1_2_1_4_0_1_4_1' with
+	the parameters "MASTERS=1,ADDR_WIDTH=32,DATA_WIDTH=32". (HDL-193)
+
+Inferred memory devices in process
+	in routine wb_mux_MASTERS1_DATA_WIDTH32_ADDR_WIDTH32 line 131 in file
+		'./wb_mux.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   prev_grant_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| prev_arb_grant_reg  | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (wb_mux_MASTERS1_DATA_WIDTH32_ADDR_WIDTH32)
+Information: Building the design 'wb_decode' instantiated from design 'wb_bus_b3_1_2_1_4_0_1_4_1' with
+	the parameters "SLAVES=2,ADDR_WIDTH=32,DATA_WIDTH=32,S0_ENABLE=1,S0_RANGE_WIDTH=4,S0_RANGE_MATCH=4'h0,S1_ENABLE=1,S1_RANGE_WIDTH=4,S1_RANGE_MATCH=4'h1". (HDL-193)
+Presto compilation completed successfully. (wb_decode_2_32_32_1_4_0_1_4_1)
+Information: Building the design 'expand_key_type_D_192'. (HDL-193)
+
+Inferred memory devices in process
+	in routine expand_key_type_D_192 line 250 in file
+		'./aes_192.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       k4a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k5a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k0a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k1a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k2a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k3a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine expand_key_type_D_192 line 264 in file
+		'./aes_192.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      out_1_reg      | Flip-flop |  192  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (expand_key_type_D_192)
+Information: Building the design 'expand_key_type_B_192'. (HDL-193)
+
+Inferred memory devices in process
+	in routine expand_key_type_B_192 line 165 in file
+		'./aes_192.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       k4a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k5a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k0a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k1a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k2a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k3a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine expand_key_type_B_192 line 173 in file
+		'./aes_192.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      out_1_reg      | Flip-flop |  192  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (expand_key_type_B_192)
+Information: Building the design 'expand_key_type_A_192'. (HDL-193)
+
+Inferred memory devices in process
+	in routine expand_key_type_A_192 line 119 in file
+		'./aes_192.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       k4a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k5a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k0a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k1a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k2a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k3a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine expand_key_type_A_192 line 135 in file
+		'./aes_192.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      out_1_reg      | Flip-flop |  192  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (expand_key_type_A_192)
+Information: Building the design 'expand_key_type_C_192'. (HDL-193)
+
+Inferred memory devices in process
+	in routine expand_key_type_C_192 line 207 in file
+		'./aes_192.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       k4a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k5a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k0a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k1a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k2a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       k3a_reg       | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine expand_key_type_C_192 line 221 in file
+		'./aes_192.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      out_1_reg      | Flip-flop |  192  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (expand_key_type_C_192)
+Information: Building the design 'one_round'. (HDL-193)
+
+Inferred memory devices in process
+	in routine one_round line 48 in file
+		'./round.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    state_out_reg    | Flip-flop |  128  |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (one_round)
+Information: Building the design 'final_round'. (HDL-193)
+
+Inferred memory devices in process
+	in routine final_round line 82 in file
+		'./round.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    state_out_reg    | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (final_round)
+Information: Building the design 'wb_interconnect_arb_rr' instantiated from design 'wb_mux_MASTERS1_DATA_WIDTH32_ADDR_WIDTH32' with
+	the parameters "N=1". (HDL-193)
+Presto compilation completed successfully. (wb_interconnect_arb_rr_N1)
+Information: Building the design 'S4'. (HDL-193)
+Presto compilation completed successfully. (S4)
+Information: Building the design 'table_lookup'. (HDL-193)
+Presto compilation completed successfully. (table_lookup)
+Information: Building the design 'S'. (HDL-193)
+
+Statistics for case statements in always block at line 76 in file
+	'./table.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            80            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+	in routine S line 76 in file
+		'./table.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       out_reg       | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (S)
+Information: Building the design 'T'. (HDL-193)
+Presto compilation completed successfully. (T)
+Information: Building the design 'xS'. (HDL-193)
+
+Statistics for case statements in always block at line 347 in file
+	'./table.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           351            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+	in routine xS line 347 in file
+		'./table.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       out_reg       | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (xS)
+1
+set_max_area 0
+1
+compile -ungroup_all -area_effort high -map_effort high
+CPU Load: 1%, Ram Free: 86 GB, Swap Free: 32 GB, Work Disk Free: 5305 GB, Tmp Disk Free: 26 GB
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | V-2023.12-DWBB_202312.5 |     *     |
+| Licensed DW Building Blocks        |                         |           |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler                                                                   |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 520872                                 |
+| Number of User Hierarchies                              | 665                                    |
+| Sequential Cell Count                                   | 143011                                 |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 1                                      |
+| Number of VT Class                                      | 0                                      |
+| Number of Clocks                                        | 0                                      |
+| Number of Dont Touch Cells                              | 205236                                 |
+| Number of Dont Touch Nets                               | 0                                      |
+| Number of Size Only Cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+====================================================================================================
+
+Information: There are 729 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'wb_decode_2_32_32_1_4_0_1_4_1'
+  Processing 'wb_interconnect_arb_rr_N1'
+  Processing 'wb_mux_MASTERS1_DATA_WIDTH32_ADDR_WIDTH32'
+  Processing 'wb_bus_b3_1_2_1_4_0_1_4_1'
+  Processing 'S_0'
+  Processing 'S4_0'
+  Processing 'final_round'
+  Processing 'xS_0'
+  Processing 'T_0'
+  Processing 'table_lookup_0'
+  Processing 'one_round_0'
+  Processing 'expand_key_type_A_192_0'
+  Processing 'expand_key_type_B_192_0'
+  Processing 'expand_key_type_C_192_0'
+  Processing 'expand_key_type_D_192'
+  Processing 'aes_192'
+  Processing 'aes_top'
+  Processing 'wbram_depth16384_896242'
+Information: Ungrouping hierarchy C279396. (OPT-772)
+  Processing 'picorv32_1_1_1_1_1_0_0_0_0_1_1_0_0_0_0_0_1_1_0_0_00000000_ffffffff_00000000_00000010_ffffffff'
+Information: Ungrouping hierarchy C10879. (OPT-772)
+Information: Ungrouping hierarchy C10878. (OPT-772)
+Information: The register 'latched_is_lb_reg' will be removed. (OPT-1207)
+Information: The register 'is_sltiu_bltu_sltu_reg' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][1]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][2]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][3]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][4]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][5]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][6]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][7]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][8]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][9]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][10]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][11]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][12]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][13]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][14]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][15]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][16]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][17]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][18]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][19]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][20]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][21]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][22]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][23]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][24]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][25]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][26]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][27]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][28]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][29]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][30]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][0]' will be removed. (OPT-1207)
+Information: The register 'cpuregs_reg[0][31]' will be removed. (OPT-1207)
+Information: The register 'do_waitirq_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_valid_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[35]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[34]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[33]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[32]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[9]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[8]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'trace_data_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_valid_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[9]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[8]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'eoi_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'compressed_instr_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'decoded_imm_j_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'instr_waitirq_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'instr_retirq_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'cpu_state_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[8]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[9]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'instr_getq_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'instr_setq_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'instr_maskirq_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'instr_timer_reg' is a constant and will be removed. (OPT-1206)
+Information: The register 'pcpi_insn_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'mem_addr_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'mem_addr_reg[0]' is a constant and will be removed. (OPT-1206)
+  Processing 'picorv32_top'
+  Processing 'top'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: Ungrouping hierarchy cpu. (OPT-772)
+Information: Ungrouping hierarchy ram. (OPT-772)
+Information: Ungrouping hierarchy aes_inst. (OPT-772)
+Information: Ungrouping hierarchy u_bus. (OPT-772)
+Information: Ungrouping hierarchy cpu/picorv32_core. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes. (OPT-772)
+Information: Ungrouping hierarchy u_bus/u_mux. (OPT-772)
+Information: Ungrouping hierarchy u_bus/u_decode. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf. (OPT-772)
+Information: Ungrouping hierarchy u_bus/u_mux/u_arbiter. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a0/S4_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a0/S4_0/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a10. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a7. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a11. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a8. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a5. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a9. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a6. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a11/S4_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a9/S4_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a8/S4_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a6/S4_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a5/S4_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a3/S4_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a2/S4_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t3/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t2/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t1/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t0/s0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_4/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_4/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_4/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_4/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_3/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_3/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_3/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_3/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_2/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_2/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_2/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_2/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_1/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_1/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_1/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/rf/S4_1/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a11/S4_0/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a11/S4_0/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a11/S4_0/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a11/S4_0/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a9/S4_0/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a9/S4_0/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a9/S4_0/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a9/S4_0/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a8/S4_0/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a8/S4_0/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a8/S4_0/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a8/S4_0/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a6/S4_0/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a6/S4_0/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a6/S4_0/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a6/S4_0/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a5/S4_0/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a5/S4_0/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a5/S4_0/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a5/S4_0/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a3/S4_0/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a3/S4_0/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a3/S4_0/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a3/S4_0/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a2/S4_0/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a2/S4_0/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a2/S4_0/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a2/S4_0/S_0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a0/S4_0/S_3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a0/S4_0/S_2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/a0/S4_0/S_1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t0. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t3. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t2. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t1. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r11/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r10/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r9/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r8/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r7/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r6/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r5/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r4/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r3/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r2/t0/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t3/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t2/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t1/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t1/t0/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t3/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t2/s4. (OPT-772)
+Information: Ungrouping hierarchy aes_inst/aes/r1/t0/t1/s4. (OPT-772)
+
+  Beginning Implementation Selection
+  ----------------------------------
+Information: The register 'u_bus/u_mux/prev_grant_reg[0]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[1]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[0]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[27]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[26]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[25]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[24]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[23]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[22]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[21]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[20]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[19]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[18]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[17]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[16]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[15]' will be removed. (OPT-1207)
+Information: The register 'cpu/wbm_adr_o_reg[14]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[26]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[22]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[27]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[25]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[21]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[24]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[20]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[16]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[15]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[14]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[17]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[18]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[19]' will be removed. (OPT-1207)
+Information: The register 'cpu/picorv32_core/mem_addr_reg[23]' will be removed. (OPT-1207)
+  Processing 'DW01_cmp2_width5_DW01_cmp2_0'
+  Processing 'DW01_dec_width5_DW01_dec_0'
+  Processing 'DW01_cmp6_width32_DW01_cmp6_0'
+  Processing 'DW01_add_width32_DW01_add_0'
+  Processing 'DW01_sub_width32_DW01_sub_0'
+  Processing 'DW01_add_width32_DW01_add_1'
+  Processing 'DW01_cmp2_width32_DW01_cmp2_1'
+  Processing 'DW01_add_width32_DW01_add_2'
+  Processing 'DW01_inc_width64_DW01_inc_0'
+  Processing 'DW01_add_width32_DW01_add_3'
+  Processing 'DW01_inc_width64_DW01_inc_1'
+  Processing 'DW01_add_width32_DW01_add_4'
+  Processing 'DW01_add_width32_DW01_add_5'
+  Processing 'DW01_sub_width5_DW01_sub_1'
+  Processing 'DW01_dec_width5_DW01_dec_1'
+
+  Beginning Mapping Optimizations  (High effort)
+  -------------------------------
+  Structuring 'top'
+  Mapping 'top'
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:39:34 68054615.9      0.00       0.0   47648.7                          
+    0:39:34 68054615.9      0.00       0.0   47648.7                          
+    0:39:34 68054615.9      0.00       0.0   47648.7                          
+    0:39:34 68054615.9      0.00       0.0   47648.7                          
+    0:39:51 68054615.9      0.00       0.0   47648.7                          
+    0:41:29 50773426.1      0.00       0.0   47081.0                          
+    0:41:38 50773426.1      0.00       0.0   47081.0                          
+    0:41:42 50773426.1      0.00       0.0   47081.0                          
+    0:41:47 50773426.1      0.00       0.0   47081.0                          
+    0:41:47 50773426.1      0.00       0.0   47081.0                          
+    0:42:03 50779613.7      0.00       0.0   31065.6                          
+    0:42:11 50783230.1      0.00       0.0   28218.6                          
+    0:42:20 50786116.5      0.00       0.0   26281.2                          
+    0:42:28 50788107.2      0.00       0.0   24544.7                          
+    0:42:35 50789708.0      0.00       0.0   23326.3                          
+    0:42:42 50790379.8      0.00       0.0   22456.7                          
+    0:42:48 50790894.1      0.00       0.0   21921.9                          
+    0:42:55 50791250.7      0.00       0.0   21331.9                          
+    0:43:02 50791466.4      0.00       0.0   20814.8                          
+    0:43:07 50791740.1      0.00       0.0   20690.1                          
+    0:43:07 50791740.1      0.00       0.0   20690.1                          
+
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:43:07 50791740.1      0.00       0.0   20690.1                          
+    0:43:07 50791740.1      0.00       0.0   20690.1                          
+    0:43:07 50791740.1      0.00       0.0   20690.1                          
+    0:43:07 50791740.1      0.00       0.0   20690.1                          
+    0:43:07 50791740.1      0.00       0.0   20690.1                          
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_fanout)
+  ----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:43:07 50791740.1      0.00       0.0   20690.1                          
+    0:43:11 50793822.0      0.00       0.0   10391.1 net2613738               
+    0:43:11 50797007.1      0.00       0.0    8832.2 net2610702               
+    0:43:13 50800167.2      0.00       0.0    7715.4 net2611886               
+    0:43:14 50803053.7      0.00       0.0    6787.4 net2611224               
+    0:43:15 50804223.2      0.00       0.0    6271.0 net2608192               
+    0:43:15 50804795.5      0.00       0.0    5930.1 net2610568               
+    0:43:16 50805492.2      0.00       0.0    5589.1 net2608984               
+    0:43:16 50806189.0      0.00       0.0    5248.2 net2612944               
+    0:43:17 50806603.7      0.00       0.0    4972.2 net2609508               
+    0:43:17 50806744.7      0.00       0.0    4746.3 net2610432               
+    0:43:18 50806802.7      0.00       0.0    4522.3 net2610302               
+    0:43:18 50806943.7      0.00       0.0    4296.5 net2613336               
+    0:43:22 50808519.7      0.00       0.0    3669.0 net2609382               
+    0:43:23 50808917.8      0.00       0.0    3360.1 net2608722               
+    0:43:23 50809614.5      0.00       0.0    3019.1 net2610964               
+    0:43:23 50810311.3      0.00       0.0    2678.2 net2613472               
+    0:43:24 50810949.9      0.00       0.0    2349.8 net2825447               
+    0:43:30 50811057.8      0.00       0.0    2203.1 net2607270               
+    0:43:30 50811115.8      0.00       0.0    1979.1 net2608854               
+    0:43:31 50811173.9      0.00       0.0    1755.1 net2607402               
+    0:43:32 50811563.7      0.00       0.0    1524.1 net2609908               
+    0:43:34 50811837.4      0.00       0.0    1351.0 net2828220               
+    0:43:34 50811688.1      0.00       0.0    1337.5 net2952187               
+    0:43:34 50811688.1      0.00       0.0    1324.9 net2948527               
+    0:43:34 50811729.6      0.00       0.0    1313.1 net2834455               
+    0:43:34 50811729.6      0.00       0.0    1302.4 net2951080               
+    0:43:35 50811762.8      0.00       0.0    1169.9 net2613470               
+    0:43:35 50811820.9      0.00       0.0     945.9 net2607134               
+    0:43:36 50811878.9      0.00       0.0     721.9 net2607264               
+    0:43:37 50811937.0      0.00       0.0     497.9 net2606472               
+    0:43:38 50811978.5      0.00       0.0     337.9                          
+
+
+  Beginning Area-Recovery Phase  (max_area 0)
+  -----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:43:38 50811978.5      0.00       0.0     337.9                          
+    0:43:42 50811978.5      0.00       0.0     337.9                          
+    0:46:06 48845218.6      0.00       0.0     337.7                          
+    0:46:51 46906419.1      0.00       0.0     337.7                          
+    0:47:16 46898514.5      0.00       0.0     337.7                          
+    0:47:40 46893919.4      0.00       0.0     337.7                          
+    0:48:07 46889540.0      0.00       0.0     337.7                          
+    0:48:30 46885226.9      0.00       0.0     337.7                          
+    0:48:55 46880913.8      0.00       0.0     337.7                          
+    0:49:18 46876600.7      0.00       0.0     337.7                          
+    0:49:43 46872287.7      0.00       0.0     337.7                          
+    0:50:06 46867974.6      0.00       0.0     337.7                          
+    0:50:29 46863661.5      0.00       0.0     337.7                          
+    0:50:52 46859348.4      0.00       0.0     337.7                          
+    0:51:15 46855035.3      0.00       0.0     337.7                          
+    0:51:37 46850722.2      0.00       0.0     337.7                          
+    0:52:00 46846409.1      0.00       0.0     337.7                          
+    0:52:22 46842096.0      0.00       0.0     337.7                          
+    0:52:23 46842096.0      0.00       0.0     337.7                          
+    0:52:30 46842096.0      0.00       0.0     337.7                          
+    0:52:33 46840155.2      0.00       0.0     338.9                          
+    0:52:35 46840155.2      0.00       0.0     338.9                          
+    0:52:35 46840155.2      0.00       0.0     338.9                          
+    0:52:37 46840155.2      0.00       0.0     338.9                          
+    0:52:37 46840155.2      0.00       0.0     338.9                          
+    0:52:38 46840155.2      0.00       0.0     338.9                          
+    0:52:45 46838554.4      0.00       0.0     305.0                          
+    0:52:48 46836762.8      0.00       0.0     305.0                          
+    0:52:50 46835037.6      0.00       0.0     305.0                          
+    0:52:54 46833013.7      0.00       0.0     305.0                          
+    0:52:57 46830160.4      0.00       0.0     305.0                          
+    0:52:59 46829496.9      0.00       0.0     305.0                          
+    0:53:02 46826643.6      0.00       0.0     305.0                          
+    0:53:04 46826013.2      0.00       0.0     305.0                          
+    0:53:07 46823060.4      0.00       0.0     305.0                          
+    0:53:09 46822596.0      0.00       0.0     305.0                          
+    0:53:12 46819643.1      0.00       0.0     305.0                          
+    0:53:14 46818846.9      0.00       0.0     305.0                          
+    0:53:17 46816060.0      0.00       0.0     305.0                          
+    0:53:19 46815296.9      0.00       0.0     305.0                          
+    0:53:22 46812543.1      0.00       0.0     305.0                          
+    0:53:24 46811912.8      0.00       0.0     305.0                          
+    0:53:27 46809059.5      0.00       0.0     305.0                          
+    0:53:29 46808429.1      0.00       0.0     305.0                          
+    0:53:32 46805476.3      0.00       0.0     305.0                          
+    0:53:34 46804912.3      0.00       0.0     305.0                          
+    0:53:37 46801959.5      0.00       0.0     305.0                          
+    0:53:39 46801461.8      0.00       0.0     305.0                          
+    0:53:42 46798442.7      0.00       0.0     305.0                          
+    0:53:44 46797845.5      0.00       0.0     305.0                          
+    0:53:47 46794826.3      0.00       0.0     305.0                          
+    0:53:50 46794195.9      0.00       0.0     305.0                          
+    0:53:53 46791209.9      0.00       0.0     305.0                          
+    0:53:55 46790712.3      0.00       0.0     305.0                          
+    0:54:07 46782086.1      0.00       0.0     305.0                          
+    0:54:20 46778436.6      0.00       0.0     305.0                          
+    0:54:29 46774853.4      0.00       0.0     305.0                          
+    0:54:42 46766127.7      0.00       0.0     305.0                          
+    0:54:53 46764734.2      0.00       0.0     305.0                          
+    0:55:04 46758861.8      0.00       0.0     305.0                          
+    0:55:17 46753885.1      0.00       0.0     305.0                          
+    0:55:28 46751330.5      0.00       0.0     305.0                          
+    0:55:38 46742837.0      0.00       0.0     305.0                          
+    0:55:45 46740846.3      0.00       0.0     305.0                          
+    0:55:51 46734476.2      0.00       0.0     305.0                          
+    0:55:57 46725518.3      0.00       0.0     305.0                          
+    0:56:09 46717953.8      0.00       0.0     305.0                          
+    0:56:20 46715930.0      0.00       0.0     305.0                          
+    0:56:28 46708995.8      0.00       0.0     305.0                          
+    0:56:34 46703322.5      0.00       0.0     305.0                          
+    0:56:39 46701895.8      0.00       0.0     305.0                          
+    0:56:44 46699805.6      0.00       0.0     305.0                          
+    0:56:51 46690515.9      0.00       0.0     305.0                          
+    0:56:59 46681558.0      0.00       0.0     305.0                          
+    0:57:11 46677377.6      0.00       0.0     305.0                          
+    0:57:20 46673960.3      0.00       0.0     305.0                          
+    0:57:26 46665002.3      0.00       0.0     305.0                          
+    0:57:31 46659926.2      0.00       0.0     305.0                          
+    0:57:38 46659063.6      0.00       0.0     305.0                          
+    0:57:39 46654584.6      0.00       0.0     305.0                          
+    0:57:41 46652195.8      0.00       0.0     305.0                          
+    0:57:44 46649342.5      0.00       0.0     305.0                          
+    0:57:47 46648479.9      0.00       0.0     305.0                          
+    0:57:50 46645726.2      0.00       0.0     305.0                          
+    0:57:52 46645261.7      0.00       0.0     305.0                          
+    0:57:55 46642176.2      0.00       0.0     305.0                          
+    0:57:57 46641645.3      0.00       0.0     305.0                          
+    0:58:00 46638659.3      0.00       0.0     305.0                          
+    0:58:02 46637995.8      0.00       0.0     305.0                          
+    0:58:05 46635142.5      0.00       0.0     305.0                          
+    0:58:07 46634479.0      0.00       0.0     305.0                          
+    0:58:10 46631625.7      0.00       0.0     305.0                          
+    0:58:12 46630929.0      0.00       0.0     305.0                          
+    0:58:15 46628075.7      0.00       0.0     305.0                          
+    0:58:17 46627412.1      0.00       0.0     305.0                          
+    0:58:21 46624492.5      0.00       0.0     305.0                          
+    0:58:23 46623828.9      0.00       0.0     305.0                          
+    0:58:25 46621042.0      0.00       0.0     305.0                          
+    0:58:28 46620345.3      0.00       0.0     305.0                          
+    0:58:31 46617458.8      0.00       0.0     305.0                          
+    0:58:33 46616969.5      0.00       0.0     305.0                          
+    0:58:34 46616264.5      0.00       0.0     305.0                          
+    0:58:36 46613983.5      0.00       0.0     305.0                          
+    0:58:39 46612490.5      0.00       0.0     305.0                          
+    0:58:42 46609504.5      0.00       0.0     305.0                          
+    0:58:45 46608874.1      0.00       0.0     305.0                          
+    0:58:48 46605921.3      0.00       0.0     305.0                          
+    0:58:50 46605224.6      0.00       0.0     305.0                          
+    0:58:53 46602271.8      0.00       0.0     305.0                          
+    0:58:55 46601608.2      0.00       0.0     305.0                          
+    0:58:58 46598622.3      0.00       0.0     305.0                          
+    0:59:01 46597925.5      0.00       0.0     305.0                          
+    0:59:04 46595039.1      0.00       0.0     305.0                          
+    0:59:06 46594508.2      0.00       0.0     305.0                          
+    0:59:09 46591555.4      0.00       0.0     305.0                          
+    0:59:11 46590825.5      0.00       0.0     305.0                          
+    0:59:14 46587972.3      0.00       0.0     305.0                          
+    0:59:16 46587209.2      0.00       0.0     305.0                          
+    0:59:17 46583028.8      0.00       0.0     305.0                          
+    0:59:18 46578848.4      0.00       0.0     305.0                          
+    0:59:19 46574568.5      0.00       0.0     305.0                          
+    0:59:20 46570354.9      0.00       0.0     305.0                          
+    0:59:22 46563785.8      0.00       0.0     305.0                          
+    0:59:25 46555093.2      0.00       0.0     305.0                          
+    0:59:29 46552206.8      0.00       0.0     305.0                          
+    0:59:32 46551941.4      0.00       0.0     305.0                          
+    0:59:39 46545538.1      0.00       0.0     305.0                          
+    0:59:47 46536878.7      0.00       0.0     305.0                          
+    0:59:53 46534324.1      0.00       0.0     305.0                          
+    0:59:59 46533295.6      0.00       0.0     305.0                          
+    1:00:06 46524337.6      0.00       0.0     305.0                          
+    1:00:12 46517834.8      0.00       0.0     305.0                          
+    1:00:17 46515744.6      0.00       0.0     305.0                          
+    1:00:21 46515081.1      0.00       0.0     305.0                          
+    1:00:26 46506123.1      0.00       0.0     305.0                          
+    1:00:32 46497496.9      0.00       0.0     305.0                          
+    1:00:43 46492553.5      0.00       0.0     305.0                          
+    1:00:53 46489965.6      0.00       0.0     305.0                          
+    1:01:00 46480675.9      0.00       0.0     305.0                          
+    1:01:06 46477325.0      0.00       0.0     305.0                          
+    1:01:10 46476362.8      0.00       0.0     305.0                          
+    1:01:16 46470988.0      0.00       0.0     305.0                          
+    1:01:22 46464186.6      0.00       0.0     305.0                          
+    1:01:27 46462229.1      0.00       0.0     305.0                          
+    1:01:31 46461167.5      0.00       0.0     305.0                          
+    1:01:41 46452209.5      0.00       0.0     305.0                          
+    1:01:50 46449920.3      0.00       0.0     305.0                          
+    1:01:59 46445043.1      0.00       0.0     305.0                          
+    1:02:11 46439071.2      0.00       0.0     305.0                          
+    1:02:20 46437511.8      0.00       0.0     305.0                          
+    1:02:28 46428885.7      0.00       0.0     305.0                          
+    1:02:36 46426231.4      0.00       0.0     305.0                          
+    1:02:40 46425899.7      0.00       0.0     305.0                          
+    1:04:16 46425567.9      0.00       0.0     305.0                          
+    1:04:17 46421088.9      0.00       0.0     305.0                          
+    1:04:18 46419090.0      0.00       0.0     305.0                          
+    1:04:44 46418849.4      0.00       0.0     305.0                          
+    1:04:50 46418816.3      0.00       0.0     305.0                          
+    1:05:02 46418783.1      0.00       0.0     305.0                          
+    1:05:24 46418749.9      0.00       0.0     305.0                          
+    1:05:35 46418484.5      0.00       0.0     305.0                          
+    1:05:54 46418451.3      0.00       0.0     305.0                          
+    1:07:28 46418418.1      0.00       0.0     305.0                          
+    1:09:56 46418418.1      0.00       0.0     305.0                          
+    1:09:59 46417397.9      0.00       0.0     306.2                          
+    1:10:01 46417397.9      0.00       0.0     306.2                          
+    1:10:01 46417397.9      0.00       0.0     306.2                          
+    1:10:03 46417397.9      0.00       0.0     306.2                          
+    1:10:03 46417397.9      0.00       0.0     306.2                          
+    1:10:04 46417397.9      0.00       0.0     306.2                          
+    1:10:14 46417621.9      0.00       0.0     305.0                          
+    1:13:42 46413217.5      0.00       0.0     305.2                          
+    1:15:05 46411276.6      0.00       0.0     307.4                          
+    1:15:48 46408456.5      0.00       0.0     307.4                          
+    1:16:32 46406980.1      0.00       0.0     307.4                          
+    1:16:56 46406839.1      0.00       0.0     307.4                          
+    1:16:59 46406698.1      0.00       0.0     307.4                          
+    1:17:01 46406540.5      0.00       0.0     307.4                          
+    1:17:03 46406383.0      0.00       0.0     307.4                          
+    1:17:05 46406225.4      0.00       0.0     307.4                          
+    1:17:07 46406067.8      0.00       0.0     307.4                          
+    1:17:09 46405910.2      0.00       0.0     307.4                          
+    1:17:11 46405769.2      0.00       0.0     307.4                          
+    1:17:13 46405611.6      0.00       0.0     307.4                          
+    1:17:16 46405470.6      0.00       0.0     307.4                          
+    1:17:18 46405313.0      0.00       0.0     307.4                          
+    1:17:19 46405313.0      0.00       0.0     307.4                          
+    1:17:20 46405313.0      0.00       0.0     307.4                          
+    1:17:25 46405147.1      0.00       0.0     307.4                          
+    1:17:27 46405147.1      0.00       0.0     307.4                          
+    1:17:27 46405147.1      0.00       0.0     307.4                          
+    1:17:29 46405147.1      0.00       0.0     307.4                          
+    1:17:29 46405147.1      0.00       0.0     307.4                          
+    1:17:30 46405147.1      0.00       0.0     307.4                          
+    1:17:41 46405445.7      0.00       0.0     305.0                          
+Loading db file '/nelms/UFAD/tambiaratabassum/SoC-Fuzzing/lec25dscc25.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'top' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'clk': 142476 load(s), 1 driver(s)
+CPU Load: 1%, Ram Free: 82 GB, Swap Free: 32 GB, Work Disk Free: 5256 GB, Tmp Disk Free: 26 GB
+Information: Total number of MV cells in the design.
+----------------------------------------------------------------------------------------------------
+ MV Cells                                           Total Number                                   
+----------------------------------------------------------------------------------------------------
+ Level Shifter:                                     0                                             
+ Enable Level Shifter:                              0                                             
+ Isolation Cell:                                    0                                             
+ Retention Cell:                                    0                                             
+ Retention Clamp Cell:                              0                                             
+ Switch Cell:                                       0                                             
+ Always-On Cell:                                    0                                             
+ Repeater Cell:                                     0                                             
+
+----------------------------------------------------------------------------------------------------
+Unmapped MV Cells 
+----------------------------------------------------------------------------------------------------
+0 Isolation Cells are unmapped 
+0 Retention Clamp Cells are unmapped 
+----------------------------------------------------------------------------------------------------
+1
+report_area
+ 
+****************************************
+Report : area
+Design : top
+Version: V-2023.12-SP5
+Date   : Fri Feb 13 15:45:14 2026
+****************************************
+
+Information: Updating design information... (UID-85)
+Warning: Design 'top' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Library(s) Used:
+
+    lec25dscc25_TT (File: /nelms/UFAD/tambiaratabassum/SoC-Fuzzing/lec25dscc25.db)
+
+Number of ports:                           36
+Number of nets:                        599456
+Number of cells:                       546434
+Number of combinational cells:         403874
+Number of sequential cells:            142544
+Number of macros/black boxes:               0
+Number of buf/inv:                      59637
+Number of references:                      78
+
+Combinational area:           23875330.695637
+Buf/Inv area:                  1979989.452805
+Noncombinational area:        22530114.993256
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:              46405445.688892
+Total area:                 undefined
+1
+report_hierarchy
+ 
+****************************************
+Report : hierarchy
+Design : top
+Version: V-2023.12-SP5
+Date   : Fri Feb 13 15:45:35 2026
+****************************************
+
+top
+    and2s1             lec25dscc25_TT
+    and2s2             lec25dscc25_TT
+    and2s3             lec25dscc25_TT
+    and3s1             lec25dscc25_TT
+    and3s2             lec25dscc25_TT
+    and3s3             lec25dscc25_TT
+    and4s1             lec25dscc25_TT
+    and4s3             lec25dscc25_TT
+    aoai1112s1         lec25dscc25_TT
+    aoi13s1            lec25dscc25_TT
+    aoi13s2            lec25dscc25_TT
+    aoi21s1            lec25dscc25_TT
+    aoi21s2            lec25dscc25_TT
+    aoi22s1            lec25dscc25_TT
+    aoi22s2            lec25dscc25_TT
+    aoi23s1            lec25dscc25_TT
+    aoi42s1            lec25dscc25_TT
+    aoi211s1           lec25dscc25_TT
+    aoi221s1           lec25dscc25_TT
+    aoi222s1           lec25dscc25_TT
+    dffacs1            lec25dscc25_TT
+    dffacs2            lec25dscc25_TT
+    dffs1              lec25dscc25_TT
+    dffs2              lec25dscc25_TT
+    dsmxc31s1          lec25dscc25_TT
+    dsmxc31s2          lec25dscc25_TT
+    fadd1s1            lec25dscc25_TT
+    fadd1s2            lec25dscc25_TT
+    hadd1s2            lec25dscc25_TT
+    hi1s1              lec25dscc25_TT
+    i1s1               lec25dscc25_TT
+    i1s2               lec25dscc25_TT
+    i1s3               lec25dscc25_TT
+    ib1s1              lec25dscc25_TT
+    ib1s2              lec25dscc25_TT
+    lclks1             lec25dscc25_TT
+    lscs1              lec25dscc25_TT
+    mxi21s1            lec25dscc25_TT
+    nb1s1              lec25dscc25_TT
+    nb1s2              lec25dscc25_TT
+    nb1s3              lec25dscc25_TT
+    nnd2s1             lec25dscc25_TT
+    nnd2s2             lec25dscc25_TT
+    nnd3s1             lec25dscc25_TT
+    nnd3s2             lec25dscc25_TT
+    nnd4s1             lec25dscc25_TT
+    nnd4s2             lec25dscc25_TT
+    nnd5s3             lec25dscc25_TT
+    nor2s1             lec25dscc25_TT
+    nor2s2             lec25dscc25_TT
+    nor2s3             lec25dscc25_TT
+    nor3s1             lec25dscc25_TT
+    nor4s1             lec25dscc25_TT
+    nor5s1             lec25dscc25_TT
+    nor6s1             lec25dscc25_TT
+    oai13s1            lec25dscc25_TT
+    oai21s1            lec25dscc25_TT
+    oai21s2            lec25dscc25_TT
+    oai21s3            lec25dscc25_TT
+    oai22s1            lec25dscc25_TT
+    oai22s2            lec25dscc25_TT
+    oai24s1            lec25dscc25_TT
+    oai32s1            lec25dscc25_TT
+    oai211s1           lec25dscc25_TT
+    oai221s1           lec25dscc25_TT
+    oai222s1           lec25dscc25_TT
+    oai222s2           lec25dscc25_TT
+    oai322s1           lec25dscc25_TT
+    oai1112s1          lec25dscc25_TT
+    oai2222s1          lec25dscc25_TT
+    or2s1              lec25dscc25_TT
+    or2s2              lec25dscc25_TT
+    or3s1              lec25dscc25_TT
+    or4s1              lec25dscc25_TT
+    or5s1              lec25dscc25_TT
+    xnr2s1             lec25dscc25_TT
+    xor2s1             lec25dscc25_TT
+    xor2s2             lec25dscc25_TT
+1
+report_reference
+ 
+****************************************
+Report : reference
+Design : top
+Version: V-2023.12-SP5
+Date   : Fri Feb 13 15:45:35 2026
+****************************************
+
+Attributes:
+    b - black box (unknown)
+   bo - allows boundary optimization
+    d - dont_touch
+   mo - map_only
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    s - synthetic operator
+    u - contains unmapped logic
+
+Reference          Library       Unit Area   Count    Total Area   Attributes
+-----------------------------------------------------------------------------
+and2s1             lec25dscc25_TT
+                                 49.766399   16618  827018.024956 
+and2s2             lec25dscc25_TT
+                                 58.060799      29   1683.763161  
+and2s3             lec25dscc25_TT
+                                 99.532799      19   1891.123177  
+and3s1             lec25dscc25_TT
+                                 66.355202     525  34836.480904  
+and3s2             lec25dscc25_TT
+                                 99.532799       3    298.598396  
+and3s3             lec25dscc25_TT
+                                174.182007       5    870.910034  
+and4s1             lec25dscc25_TT
+                                 74.649597     760  56733.693848  
+and4s3             lec25dscc25_TT
+                                124.416000       2    248.832001  
+aoai1112s1         lec25dscc25_TT
+                                 66.355202    3381  224346.937019 
+aoi13s1            lec25dscc25_TT
+                                 58.060799    1005  58351.102638  
+aoi13s2            lec25dscc25_TT
+                                 58.060799       1     58.060799  
+aoi21s1            lec25dscc25_TT
+                                 49.766399    3937  195930.314373 
+aoi21s2            lec25dscc25_TT
+                                 49.766399       1     49.766399  
+aoi22s1            lec25dscc25_TT
+                                 58.060799   14298  830153.299026 
+aoi22s2            lec25dscc25_TT
+                                 58.060799     160   9289.727783  
+aoi23s1            lec25dscc25_TT
+                                 66.355202       7    464.486412  
+aoi42s1            lec25dscc25_TT
+                                 74.649597       2    149.299194  
+aoi211s1           lec25dscc25_TT
+                                 58.060799    3164  183704.366913 
+aoi221s1           lec25dscc25_TT
+                                 74.649597   27343  2041143.935364
+aoi222s1           lec25dscc25_TT
+                                 82.944000    4326  358815.745056 
+dffacs1            lec25dscc25_TT
+                                165.888000    8282  1373884.420044
+                                                                  n
+dffacs2            lec25dscc25_TT
+                                182.477005      14   2554.678070  n
+dffs1              lec25dscc25_TT
+                                157.593994  134145  21140446.343994
+                                                                  n
+dffs2              lec25dscc25_TT
+                                174.182007      35   6096.370239  n
+dsmxc31s1          lec25dscc25_TT
+                                 74.649597     146  10898.841187  
+dsmxc31s2          lec25dscc25_TT
+                                 74.649597       1     74.649597  
+fadd1s1            lec25dscc25_TT
+                                165.888000      30   4976.640015  r
+fadd1s2            lec25dscc25_TT
+                                165.888000     125  20736.000061  r
+hadd1s2            lec25dscc25_TT
+                                 99.532799     124  12342.067047  r
+hi1s1              lec25dscc25_TT
+                                 33.177601   37295  1237358.624096
+i1s1               lec25dscc25_TT
+                                 33.177601    2363  78398.670834  
+i1s2               lec25dscc25_TT
+                                 41.472000      12    497.664001  
+i1s3               lec25dscc25_TT
+                                 41.472000      72   2985.984009  
+ib1s1              lec25dscc25_TT
+                                 33.177601   19845  658409.489079 
+ib1s2              lec25dscc25_TT
+                                 41.472000       4    165.888000  
+lclks1             lec25dscc25_TT
+                                 91.238403      52   4744.396973  n
+lscs1              lec25dscc25_TT
+                                149.298996      16   2388.783936  n
+mxi21s1            lec25dscc25_TT
+                                 66.355202  132687  8804472.650780
+nb1s1              lec25dscc25_TT
+                                 41.472000      16    663.552002  
+nb1s2              lec25dscc25_TT
+                                 49.766399      29   1443.225582  
+nb1s3              lec25dscc25_TT
+                                 66.355202       1     66.355202  
+nnd2s1             lec25dscc25_TT
+                                 41.472000   17675  733017.602158 
+nnd2s2             lec25dscc25_TT
+                                 41.472000     954  39564.288116  
+nnd3s1             lec25dscc25_TT
+                                 49.766399    4389  218424.726894 
+nnd3s2             lec25dscc25_TT
+                                 49.766399     921  45834.853832  
+nnd4s1             lec25dscc25_TT
+                                 58.060799   13051  757751.483116 
+nnd4s2             lec25dscc25_TT
+                                 91.238403       3    273.715210  
+nnd5s3             lec25dscc25_TT
+                                182.477005     175  31933.475876  
+nor2s1             lec25dscc25_TT
+                                 41.472000    6362  263844.864777 
+nor2s2             lec25dscc25_TT
+                                 58.060799      15    870.911980  
+nor2s3             lec25dscc25_TT
+                                 74.649597       1     74.649597  
+nor3s1             lec25dscc25_TT
+                                 82.944000      96   7962.624023  
+nor4s1             lec25dscc25_TT
+                                 82.944000     177  14681.088043  
+nor5s1             lec25dscc25_TT
+                                 99.532799     274  27271.986862  
+nor6s1             lec25dscc25_TT
+                                107.827003       5    539.135017  
+oai13s1            lec25dscc25_TT
+                                 58.060799     942  54693.272324  
+oai21s1            lec25dscc25_TT
+                                 49.766399    8426  419331.681206 
+oai21s2            lec25dscc25_TT
+                                 49.766399       5    248.831997  
+oai21s3            lec25dscc25_TT
+                                 82.944000       1     82.944000  
+oai22s1            lec25dscc25_TT
+                                 58.060799   40005  2322722.249794
+oai22s2            lec25dscc25_TT
+                                 58.060799       3    174.182396  
+oai24s1            lec25dscc25_TT
+                                 91.238403       7    638.668823  
+oai32s1            lec25dscc25_TT
+                                 74.649597      28   2090.188721  
+oai211s1           lec25dscc25_TT
+                                 58.060799    1046  60731.595383  
+oai221s1           lec25dscc25_TT
+                                 74.649597   11019  822563.911194 
+oai222s1           lec25dscc25_TT
+                                 82.944000    2357  195499.008575 
+oai222s2           lec25dscc25_TT
+                                107.827003       4    431.308014  
+oai322s1           lec25dscc25_TT
+                                 91.238403       4    364.953613  
+oai1112s1          lec25dscc25_TT
+                                 66.355202    7615  505294.861107 
+oai2222s1          lec25dscc25_TT
+                                132.710007     740  98205.404968  
+or2s1              lec25dscc25_TT
+                                 49.766399     212  10550.476669  
+or2s2              lec25dscc25_TT
+                                 58.060799       1     58.060799  
+or3s1              lec25dscc25_TT
+                                 58.060799    1541  89471.690712  
+or4s1              lec25dscc25_TT
+                                 82.944000    3918  324974.592957 
+or5s1              lec25dscc25_TT
+                                 91.238403    4568  416777.026367 
+xnr2s1             lec25dscc25_TT
+                                 82.944000    1806  149796.864441 
+xor2s1             lec25dscc25_TT
+                                 82.944000    7040  583925.761719 
+xor2s2             lec25dscc25_TT
+                                 99.532799     152  15128.985413  
+-----------------------------------------------------------------------------
+Total 78 references                                 46405445.688892
+1
+report_power
+Loading db file '/nelms/UFAD/tambiaratabassum/SoC-Fuzzing/lec25dscc25.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: There is no defined clock in the design. (PWR-80)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : top
+Version: V-2023.12-SP5
+Date   : Fri Feb 13 15:46:18 2026
+****************************************
+
+
+Library(s) Used:
+
+    lec25dscc25_TT (File: /nelms/UFAD/tambiaratabassum/SoC-Fuzzing/lec25dscc25.db)
+
+
+Operating Conditions: nom_pvt   Library: lec25dscc25_TT
+Wire Load Model Mode: top
+
+
+Global Operating Voltage = 2.5  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+Attributes
+----------
+i - Including register clock pin internal power
+
+
+  Cell Internal Power  = 813.0515 mW   (89%)
+  Net Switching Power  = 102.8558 mW   (11%)
+                         ---------
+Total Dynamic Power    = 915.9073 mW  (100%)
+
+Cell Leakage Power     =   4.0543 mW
+
+Information: report_power power group summary does not include estimated clock tree power. (PWR-789)
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)  i
+register           0.0000            0.0000            0.0000            0.0000  (   0.00%)
+sequential       771.6224            9.4206        9.1126e+06          781.2264  (  84.95%)
+combinational     40.9775           93.4060        4.0452e+09          138.4532  (  15.05%)
+--------------------------------------------------------------------------------------------------
+Total            812.5999 mW       102.8266 mW     4.0543e+09 pW       919.6796 mW
+1
+write -format verilog -hierarchy -output top_netlist.v top
+Writing verilog file '/nelms/UFAD/tambiaratabassum/SoC-Fuzzing/top_netlist.v'.
+1
+quit
+
+Memory usage for this session 5746 Mbytes.
+Memory usage for this session including child processes 5746 Mbytes.
+CPU usage for this session 4788 seconds ( 1.33 hours ).
+Elapsed time for this session 4810 seconds ( 1.34 hours ).
+
+Thank you...

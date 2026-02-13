@@ -1,0 +1,47 @@
+/home/UFAD/tambiaratabassum/riscv-toolchain/bin/riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -O2 -Wl,-Bstatic,-T,linker.lds,-strip-debug -o firmware.elf start.S main.c
+/home/UFAD/tambiaratabassum/riscv-toolchain/bin/riscv64-unknown-elf-objcopy -O binary firmware.elf firmware.bin
+python3 -c "import binascii; data = open('firmware.bin','rb').read(); [print(binascii.hexlify(data[i:i+4][::-1]).decode()) for i in range(0, len(data), 4)]" > firmware.hex
+vcs -full64 -sverilog +v2k -debug_access+all picorv32.v picorv32_top.v aes_192.v aes_top.v round.v table.v wbram.v wb_bus_b3.sv wb_decode.sv wb_interconnect_arb_rr.sv wb_mux.sv top.v tb_top.v -o simv
+                         Chronologic VCS (TM)
+       Version W-2024.09-SP1_Full64 -- Mon Feb  2 21:23:37 2026
+
+                    Copyright (c) 1991 - 2024 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+The design hasn't changed and need not be recompiled. 
+If you really want to, delete file /nelms/UFAD/tambiaratabassum/SoC-Fuzzing/simv.daidir/.vcs.timestamp and
+run VCS again.
+
+./simv
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
+Chronologic VCS simulator copyright 1991-2024
+Contains Synopsys proprietary information.
+Compiler version W-2024.09-SP1_Full64; Runtime version W-2024.09-SP1_Full64;  Feb  2 21:23 2026
+[                   0] Simulation Starting...
+VCD+ Writer W-2024.09-SP1_Full64 Copyright (c) 1991-2024 by Synopsys Inc.
+[                1000] RAM[0] check: 00004137 (Expected 00004137)
+[              105000] Reset Released. CPU is running...
+----------------------------------------------------------
+[             4985000] TESTBENCH: RAM Success Flag Detected!
+[             4985000] >>> AES VERIFICATION PASSED: Data matches Golden Value <<<
+----------------------------------------------------------
+$finish called from file "tb_top.v", line 100.
+$finish at simulation time              5085000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 5085000 ps
+CPU Time:      0.150 seconds;       Data structure size:   0.4Mb
+Mon Feb  2 21:23:40 2026

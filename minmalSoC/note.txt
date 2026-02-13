@@ -1,2 +1,0 @@
-riscv64-unknown-elf-objdump -d firmware.elf > firmware.dis
-
